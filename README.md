@@ -51,7 +51,7 @@ npx -y @mvanhorn/printing-press install betriebsrat --cli-only
 ### From source (Go 1.21+)
 
 ```bash
-git clone https://github.com/googlarz/betriebsrat-pp-cli
+git clone https://github.com/googlarz/betriebsrat-pp-cli.git
 cd betriebsrat-pp-cli
 go install ./cmd/betriebsrat-pp-cli/
 ```
@@ -443,7 +443,7 @@ npx -y @mvanhorn/printing-press install betriebsrat --cli-only
 ### Aus dem Quellcode (Go 1.21+)
 
 ```bash
-git clone https://github.com/googlarz/betriebsrat-pp-cli
+git clone https://github.com/googlarz/betriebsrat-pp-cli.git
 cd betriebsrat-pp-cli
 go install ./cmd/betriebsrat-pp-cli/
 ```
