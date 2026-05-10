@@ -66,6 +66,16 @@ Claude will handle the rest. Then just describe your situation and ask away.
 
 ---
 
+## Why trust it?
+
+Every answer is grounded in the actual text of German labour law — not summaries or general knowledge. The tool cites the specific paragraph that applies to your situation, so you can see exactly where the rule comes from and look it up yourself.
+
+It reasons from a structured knowledge base built from the complete *Betriebsverfassungsgesetz* and related laws — not free-form AI guesswork. If something falls outside what the law covers, it says so.
+
+The disclaimer at the bottom is there for a reason: this tool gives you the knowledge to understand your situation and know when you need a lawyer — not to replace one.
+
+---
+
 ## What it knows
 
 - Every paragraph of the *Betriebsverfassungsgesetz* (BetrVG) — the German works constitution law
@@ -200,6 +210,16 @@ Sagen Sie Claude, es soll installieren:
 > Install this: https://github.com/googlarz/betriebsrat
 
 Claude übernimmt den Rest. Dann beschreiben Sie einfach Ihre Situation.
+
+---
+
+## Warum kann ich dem Tool vertrauen?
+
+Jede Antwort basiert auf dem tatsächlichen Text des deutschen Arbeitsrechts — nicht auf Zusammenfassungen oder allgemeinem Wissen. Das Tool nennt den konkreten Paragrafen, der auf Ihre Situation zutrifft, damit Sie die Grundlage selbst nachschlagen können.
+
+Es arbeitet auf Basis einer strukturierten Wissensdatenbank, die aus dem vollständigen Betriebsverfassungsgesetz und verwandten Gesetzen aufgebaut ist — kein freies KI-Raten. Wenn etwas außerhalb des gesetzlichen Rahmens liegt, wird das klar gesagt.
+
+Der Hinweis am Ende hat seinen Grund: Dieses Tool gibt Ihnen das Wissen, um Ihre Situation zu verstehen und zu erkennen, wann Sie einen Anwalt brauchen — es ersetzt ihn nicht.
 
 ---
 
