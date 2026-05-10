@@ -1,6 +1,6 @@
 ---
 name: betriebsrat
-description: "German works council (Betriebsrat) advisor for both BR members and employees — rights-check, deadlines, BetrVG decisions, Sozialplan calculation, and procedure-violation checks — offline, in your terminal. Trigger phrases: `check Betriebsrat rights`, `does BR have co-determination`, `BetrVG paragraph`, `Betriebsrat deadline`, `works council rights Germany`, `Kündigung Betriebsrat`, `was the BR consulted`, `am I entitled to Sozialplan`, `Betriebsänderung`, `Software Einführung Betriebsrat`, `use betriebsrat`, `run betriebsrat`."
+description: "German works council (Betriebsrat) advisor for both BR members and employees — rights-check, deadlines, BetrVG decisions, Sozialplan calculation, and procedure-violation checks. Trigger phrases: `check Betriebsrat rights`, `does BR have co-determination`, `BetrVG paragraph`, `Betriebsrat deadline`, `works council rights Germany`, `Kündigung Betriebsrat`, `was the BR consulted`, `am I entitled to Sozialplan`, `Betriebsänderung`, `Software Einführung Betriebsrat`, `use betriebsrat`, `run betriebsrat`."
 author: "Dawid Piaskowski"
 license: "Apache-2.0"
 argument-hint: "<command> [args] | install cli|mcp"
@@ -14,13 +14,13 @@ metadata:
 
 # Betriebsrat — Printing Press CLI
 
-Full knowledge base of betriebsrat.de — offline, in your terminal — with decision support that no website offers. Built for two groups:
+Full knowledge base of betriebsrat.de — with decision support that no website offers. Built for two groups:
 
 **Works council members (BR):** Was procedure followed correctly? Do we have a say? What must we do, and by when?
 
 **Employees:** Was the BR consulted before my dismissal/transfer/restructuring? Was procedure violated? What am I entitled to?
 
-One tool answers both sides. Every command works without network access.
+One tool answers both sides.
 
 ## Prerequisites: Install the CLI
 
@@ -139,7 +139,7 @@ betriebsrat context set --employees <n> --tariff [true/false] --br-size <n> --bv
 
 ### Step 1 — Classify (instant, always run)
 
-Run the classification commands. They use the embedded BetrVG knowledge base and work offline:
+Run the classification commands. They use the embedded BetrVG knowledge base and work:
 
 ```bash
 betriebsrat rights-check "<situation>" --agent
@@ -678,7 +678,7 @@ betriebsrat consequences versetzung --agent --lang en
 - `betriebsrat serve [--port 8080]`
 - Opens a browser-usable chat interface at `http://localhost:7890`
 - POST `/ask` endpoint for integration; GET `/` serves the chat UI
-- No external dependencies; works fully offline for embedded-knowledge questions
+- No external dependencies; works fully for embedded-knowledge questions
 
 **articles** — Individual articles and guides from betriebsrat.de
 - `betriebsrat articles` — Search for articles within a topic area
@@ -777,7 +777,7 @@ Add `--agent` to any command. Expands to: `--json --compact --no-input --no-colo
 
 - **Pipeable** — JSON on stdout, errors on stderr
 - **Filterable** — `--select` keeps a subset of fields
-- **Offline-capable** — all embedded knowledge commands work without network access (`rights-check`, `decide`, `deadline`, `checklist`, `law`, `codetermination-type`, `consequences`, `letter`, `sozialplan-calc`, `context`, `check-anhoerung`, `bv-template`, `massenentlassung`, `widerspruch-check`, `protokoll`, `auskunft`, `ki-check`, `nachteilsausgleich`, `schulungsantrag`, `tarifvertrag-check`)
+- **Embedded knowledge** — all decision-support commands work instantly (`rights-check`, `decide`, `deadline`, `checklist`, `law`, `codetermination-type`, `consequences`, `letter`, `sozialplan-calc`, `context`, `check-anhoerung`, `bv-template`, `massenentlassung`, `widerspruch-check`, `protokoll`, `auskunft`, `ki-check`, `nachteilsausgleich`, `schulungsantrag`, `tarifvertrag-check`)
 - **Bilingual** — add `--lang en` to any command for English output. Legal document bodies always stay in German.
 
 ### Response envelope

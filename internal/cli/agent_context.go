@@ -116,7 +116,7 @@ func buildAgentContext(rootCmd *cobra.Command) agentContext {
 		SchemaVersion: agentContextSchemaVersion,
 		CLI: agentContextCLI{
 			Name:        "betriebsrat",
-			Description: "German works council advisor: rights-check, deadlines, and BetrVG knowledge — offline, in your terminal.",
+			Description: "German works council advisor: rights-check, deadlines, and BetrVG knowledge.",
 			Version:     rootCmd.Version,
 		},
 		Auth: agentContextAuth{

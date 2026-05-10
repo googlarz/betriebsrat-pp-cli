@@ -117,7 +117,7 @@ func resolveRead(ctx context.Context, c *client.Client, flags *rootFlags, resour
 		// Network error — try local fallback
 		fallbackData, fallbackProv, fallbackErr := resolveLocal(ctx, resourceType, isList, path, params, "api_unreachable")
 		if fallbackErr != nil {
-			return nil, DataProvenance{}, fmt.Errorf("API unreachable and no local data. Run 'betriebsrat sync' to enable offline access.\n\nOriginal error: %w", err)
+			return nil, DataProvenance{}, fmt.Errorf("API unreachable and no local data. Run 'betriebsrat sync' to cache content locally.\n\nOriginal error: %w", err)
 		}
 		return fallbackData, attachFreshness(fallbackProv, flags), nil
 	}
@@ -151,7 +151,7 @@ func resolvePaginatedRead(ctx context.Context, c *client.Client, flags *rootFlag
 		}
 		fallbackData, fallbackProv, fallbackErr := resolveLocal(ctx, resourceType, true, path, params, "api_unreachable")
 		if fallbackErr != nil {
-			return nil, DataProvenance{}, fmt.Errorf("API unreachable and no local data. Run 'betriebsrat sync' to enable offline access.\n\nOriginal error: %w", err)
+			return nil, DataProvenance{}, fmt.Errorf("API unreachable and no local data. Run 'betriebsrat sync' to cache content locally.\n\nOriginal error: %w", err)
 		}
 		return fallbackData, attachFreshness(fallbackProv, flags), nil
 	}

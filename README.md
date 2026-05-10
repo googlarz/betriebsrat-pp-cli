@@ -6,7 +6,7 @@
 
 German labour law is detailed, deadline-driven, and full of rights that most people don't know they have. This tool makes that knowledge instantly accessible — whether you're a works council (*Betriebsrat*) member trying to do your job, or an employee trying to understand what your employer can and can't do to you.
 
-No API key. No login. No subscription. Runs entirely offline from an embedded BetrVG knowledge base.
+No API key. No login. No subscription.
 
 ---
 
@@ -87,7 +87,7 @@ betriebsrat doctor
 ## Quick Start
 
 ```bash
-# Populate local knowledge base (run once, everything else works offline)
+# Populate local knowledge base (run once)
 betriebsrat sync
 
 # --- AS AN EMPLOYEE ---
@@ -400,9 +400,9 @@ claude mcp add betriebsrat betriebsrat-pp-mcp
 
 ---
 
-## Offline capability
+## Embedded knowledge commands
 
-All decision-support commands run offline after the initial `sync`:
+These commands use the built-in BetrVG knowledge base and run instantly:
 
 `rights-check` · `decide` · `deadline` · `checklist` · `law` · `codetermination-type` · `consequences` · `letter` · `sozialplan-calc` · `nachteilsausgleich` · `massenentlassung` · `widerspruch-check` · `protokoll` · `auskunft` · `ki-check` · `schulungsantrag` · `tarifvertrag-check` · `bv-template` · `context` · `check-anhoerung`
 
@@ -426,7 +426,7 @@ Apache 2.0 — see [LICENSE](LICENSE).
 
 Deutsches Arbeitsrecht ist detailliert, fristengebunden und voller Rechte, von denen die meisten Menschen nichts wissen. Dieses Tool macht dieses Wissen sofort zugänglich — egal ob Sie Betriebsratsmitglied sind und Ihre Arbeit erledigen wollen, oder Arbeitnehmer, der verstehen möchte, was der Arbeitgeber mit Ihnen machen kann und was nicht.
 
-Kein API-Key. Kein Login. Kein Abo. Läuft vollständig offline aus einer eingebetteten BetrVG-Wissensdatenbank.
+Kein API-Key. Kein Login. Kein Abo.
 
 ---
 
@@ -502,7 +502,7 @@ betriebsrat doctor
 ## Schnellstart
 
 ```bash
-# Wissensdatenbank befüllen (einmalig, danach alles offline)
+# Wissensdatenbank befüllen (einmalig)
 betriebsrat sync
 
 # --- ALS ARBEITNEHMER ---
@@ -697,9 +697,9 @@ npx -y @mvanhorn/printing-press install betriebsrat
 
 ---
 
-## Offline-Fähigkeit
+## Eingebettete Wissensdatenbank
 
-Alle Entscheidungshilfe-Befehle laufen nach dem einmaligen `sync` vollständig offline:
+Diese Befehle nutzen die eingebettete BetrVG-Wissensdatenbank und laufen sofort:
 
 `rights-check` · `decide` · `deadline` · `checklist` · `law` · `codetermination-type` · `consequences` · `letter` · `sozialplan-calc` · `nachteilsausgleich` · `massenentlassung` · `widerspruch-check` · `protokoll` · `auskunft` · `ki-check` · `schulungsantrag` · `tarifvertrag-check` · `bv-template` · `context` · `check-anhoerung`
 

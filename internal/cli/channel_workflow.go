@@ -30,7 +30,7 @@ func newWorkflowArchiveCmd(flags *rootFlags) *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:   "archive",
-		Short: "Sync all resources to local store for offline access and search",
+		Short: "Sync all resources to local store for local search",
 		Long: `Archive fetches all syncable resources from the API and stores them in a
 local SQLite database. Supports incremental sync (only new data since last run)
 and full resync. After archiving, use 'search' for instant full-text search.`,

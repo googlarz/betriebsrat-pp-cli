@@ -329,12 +329,12 @@ func buildOnboardingActions(lang, question string) []string {
 			tr(lang, "Arbeitgeber darf die Wahl nicht behindern — Behinderung ist strafbar (§ 119 BetrVG)", "The employer may not obstruct the election — obstruction is a criminal offence (§ 119 BetrVG)"),
 		}
 	}
-	// Default next steps for curious users
+	// Default next steps — use cases only, no command syntax
 	return []string{
-		tr(lang, "Prüfen ob es in Ihrem Betrieb einen BR gibt: Personalabteilung oder schwarzes Brett", "Check if your company has a works council: ask HR or check the notice board"),
-		tr(lang, "Eigene Situation schildern: betriebsrat ask \"[Ihre konkrete Situation]\"", "Describe your situation: betriebsrat ask \"[your specific situation]\""),
-		tr(lang, "Rechte bei konkretem Thema prüfen: betriebsrat rights-check \"[Thema]\"", "Check rights on a specific topic: betriebsrat rights-check \"[topic]\""),
-		tr(lang, "Alle BetrVG-Paragrafen nachschlagen: betriebsrat law <§-Nummer>", "Look up any BetrVG paragraph: betriebsrat law <§-number>"),
+		tr(lang, "Prüfen ob es in Ihrem Betrieb einen BR gibt: Fragen Sie die Personalabteilung oder schauen Sie am schwarzen Brett", "Check if your company has a works council: ask HR or check the notice board"),
+		tr(lang, "Konkrete Situation? Beschreiben Sie, was gerade passiert — z.B. \"Ich habe eine Kündigung erhalten\"", "Have a specific situation? Describe what's happening — e.g. \"I received a dismissal\""),
+		tr(lang, "Fragen Sie nach Ihren Rechten — z.B. \"Was passiert, wenn der Betrieb umstrukturiert wird?\"", "Ask about your rights — e.g. \"What happens if the company restructures?\""),
+		tr(lang, "Fragen Sie nach einem konkreten Gesetzesparagrafen — z.B. \"Was sagt § 102 BetrVG?\"", "Ask about a specific law — e.g. \"What does § 102 BetrVG say?\""),
 	}
 }
 
