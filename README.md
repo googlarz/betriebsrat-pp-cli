@@ -1,380 +1,53 @@
 # betriebsrat
 
-**Know your rights at work. For employees and works council members.**
+**Know your rights at work — for employees and works council members.**
 
 > **[🇩🇪 Deutsche Version weiter unten](#deutsch)**
 
-German labour law is detailed, deadline-driven, and full of rights that most people don't know they have. This tool makes that knowledge instantly accessible — whether you're a works council (*Betriebsrat*) member trying to do your job, or an employee trying to understand what your employer can and can't do to you.
-
-No API key. No login. No subscription.
+German labour law is full of rights most people don't know they have. This tool makes them instantly accessible — in plain language, in German or English, without needing to know any law yourself.
 
 ---
 
-## Who is this for?
+## What can I ask?
 
-### Employees (Arbeitnehmer)
+Just describe your situation in your own words. Some examples:
 
-You're facing a dismissal, transfer, restructuring, or a new monitoring system at work. You want to know: **was the procedure followed? What can I claim? What are my rights?**
+**As an employee:**
+- "I received a dismissal notice. Was the works council properly consulted?"
+- "My employer is restructuring — what am I entitled to?"
+- "What is a Betriebsrat and what can it do for me?"
+- "I was transferred to a different location without my agreement. Is that allowed?"
+- "Can I get severance? I've worked here 7 years and earn €3,500 a month."
+- "I'm pregnant and my employer wants to end my contract."
+- "My employer introduced monitoring software. Did the works council have to agree?"
 
-| Your question | Command |
-|---|---|
-| Can my employer fire me without asking the BR? | `consequences kündigung` |
-| My company is restructuring — what am I entitled to? | `sozialplan-calc` + `nachteilsausgleich` |
-| They're introducing monitoring software — can the BR stop it? | `rights-check` + `ki-check` |
-| Is my dismissal valid if the BR wasn't properly consulted? | `check-anhoerung` + `consequences kündigung` |
-| I'm being transferred — did they need BR approval? | `rights-check` + `consequences versetzung` |
-| What's the BR even allowed to do in my situation? | `decide` |
-| How much severance am I entitled to? | `sozialplan-calc` |
-| The company skipped the Interessenausgleich — can I claim more? | `nachteilsausgleich` |
-| Is there a works council at companies my size? | `law 1` |
-
-### Works Council Members (Betriebsratsmitglieder)
-
-You're managing a co-determination situation — dismissal hearings, a restructuring, a new IT system, Betriebsvereinbarung negotiations. You need the right answer fast, the correct deadline, and the right document.
-
-| Your question | Command |
-|---|---|
-| Do we have co-determination rights here? | `rights-check` |
-| What kind of right is it — can we actually block this? | `codetermination-type` |
-| What's our deadline and what happens if we miss it? | `deadline` + `consequences` |
-| What should we do, step by step? | `decide` |
-| Is this Anhörungsschreiben valid? Does our clock run? | `check-anhoerung` |
-| Draft a Betriebsvereinbarung for this | `bv-template` |
-| Does the Tarifvertrag block us from writing a BV? | `tarifvertrag-check` |
-| Does this AI system trigger § 87 Nr. 6? | `ki-check` |
-| We need to request information from the employer | `auskunft` |
-| What are our strongest Widerspruch grounds? | `widerspruch-check` |
-| Calculate Sozialplan for all affected employees | `sozialplan-calc --csv` |
-| Request training time off under § 37 Abs. 6 | `schulungsantrag` |
-| Do these redundancies trigger § 17 KSchG? | `massenentlassung` |
+**As a works council member:**
+- "We received a dismissal hearing notice. What must we do and by when?"
+- "The employer wants to introduce an AI writing assistant. Do we have co-determination rights?"
+- "We're facing a mass layoff of 20 people. What's our role?"
+- "Can we force a Sozialplan if the employer refuses to negotiate?"
+- "We want to negotiate a remote work agreement. Where do we start?"
 
 ---
 
-## Install
+## How to get it
 
 Tell Claude to install it:
 
 > Install this: https://github.com/googlarz/betriebsrat
 
-Claude will handle the rest. Verify with `betriebsrat doctor`.
+Claude will handle the rest. Then just describe your situation and ask away.
 
 ---
 
-## Quick Start
-
-```bash
-# Populate local knowledge base (run once)
-betriebsrat sync
-
-# --- AS AN EMPLOYEE ---
-
-# "My employer is dismissing me — was the BR properly consulted?"
-betriebsrat consequences kündigung --lang en
-
-# "I'm in a restructuring — how much am I entitled to?"
-betriebsrat sozialplan-calc --salary 4500 --years 10 --age 45
-
-# "The employer didn't attempt an Interessenausgleich — can I claim more?"
-betriebsrat nachteilsausgleich --salary 4500 --years 10 --age 45 --measure "Standortschließung" --no-ia-attempted
-
-# "New monitoring system at work — does the BR have to agree?"
-betriebsrat rights-check "employer introducing performance monitoring software" --lang en
-
-# --- AS A BR MEMBER ---
-
-# "Do we have co-determination rights here?"
-betriebsrat rights-check "Arbeitgeber will Überwachungssoftware einführen"
-
-# "What's our deadline?"
-betriebsrat deadline "ordentliche Kündigung" --from $(date +%Y-%m-%d)
-
-# "Full decision support for a situation"
-betriebsrat decide "Betrieb soll nach München verlagert werden"
-
-# "Draft a BV"
-betriebsrat bv-template homeoffice --employer "Musterfirma GmbH"
-
-# English output on any command
-betriebsrat rights-check "mass layoff of 20 employees" --lang en
-```
-
----
-
-## Commands
-
-### Understanding rights and consequences
-
-#### `rights-check` — Does the BR have co-determination rights in this situation?
-
-Useful for **employees** ("should the BR have been involved?") and **BR members** ("do we have a say here?").
-
-```bash
-betriebsrat rights-check "Arbeitgeber will Überwachungssoftware einführen"
-betriebsrat rights-check "employer wants to transfer me to another city" --lang en
-betriebsrat rights-check "Homeoffice-Regelung" --json
-```
-
-Output: applicable §§, co-determination type (erzwingbar / Mitwirkung / Unterrichtung / keine), recommendation.
-
-#### `codetermination-type` — What kind of right is it?
-
-Classifies as: **Mitbestimmung (erzwingbar)** — employer can be blocked · Zustimmungsvorbehalt · Mitwirkung · Beratung · Unterrichtung · keine
-
-```bash
-betriebsrat codetermination-type "Versetzung"
-betriebsrat codetermination-type "Einführung Schichtplan"
-```
-
-#### `decide` — Full decision support
-
-For **employees**: understand the full picture of a situation — which rights apply, what can happen next.  
-For **BR members**: classified situation, applicable rights, prioritised action plan, deadlines.
-
-```bash
-betriebsrat decide "Betrieb soll nach München verlagert werden"
-betriebsrat decide "mass layoff of 20 employees" --lang en --agent
-```
-
-#### `consequences` — What happens if procedure is violated?
-
-For **employees**: if the BR wasn't consulted, or deadlines were missed — what does that mean for the validity of the measure against you?  
-For **BR members**: what leverage do you have, and what happens if *you* miss the window?
-
-```bash
-betriebsrat consequences kündigung     # dismissal without proper hearing
-betriebsrat consequences einstellung   # hire without BR consent
-betriebsrat consequences versetzung    # transfer without BR consent
-betriebsrat consequences betriebsänderung  # restructuring without Interessenausgleich
-betriebsrat consequences software      # monitoring system without BV
-betriebsrat consequences br-deadline   # BR didn't respond in time
-betriebsrat consequences kündigung --lang en
-```
-
-#### `checklist` — Step-by-step action checklist
-
-```bash
-betriebsrat checklist "Betriebsänderung"
-betriebsrat checklist "Massenentlassung" --lang en
-```
-
----
-
-### Deadlines
-
-#### `deadline` — Calculate legal response deadlines
-
-For **employees**: know when the BR's window closes — after that, their silence counts as consent.  
-For **BR members**: calculate the exact date you must respond by.
-
-```bash
-betriebsrat deadline "ordentliche Kündigung" --from 2026-05-10
-betriebsrat deadline "außerordentliche Kündigung" --from 2026-05-10
-# Export to calendar
-betriebsrat deadline "ordentliche Kündigung" --from 2026-05-10 --ical > frist.ics
-```
-
-Built-in: § 102 (7 days ordinary, 3 days extraordinary dismissal), § 99 hiring/transfer (1 week), § 17 KSchG mass dismissal (30 days), and more.
-
----
-
-### Calculations
-
-#### `sozialplan-calc` — How much severance is an employee entitled to?
-
-For **employees**: find out what you're owed under the Sozialplan. For **BR members**: calculate and compare entitlements for all affected staff.
-
-```bash
-betriebsrat sozialplan-calc --salary 4500 --years 12 --age 48
-betriebsrat sozialplan-calc --salary 6000 --years 20 --age 55 --disabled --factor 0.8
-# Batch for all affected employees (CSV)
-betriebsrat sozialplan-calc --csv employees.csv --agent
-```
-
-CSV format: `name,salary,years,age,disabled,children[,factor[,max_cap]]`
-
-#### `nachteilsausgleich` — Can I claim more if the employer skipped the Interessenausgleich?
-
-For **employees**: when the employer implemented a restructuring without attempting an Interessenausgleich with the BR, each affected employee has an individual compensation claim under § 113 BetrVG.
-
-```bash
-betriebsrat nachteilsausgleich --salary 4500 --years 8 --age 42 --measure "Standortschließung" --no-ia-attempted
-betriebsrat nachteilsausgleich --salary 6000 --years 15 --age 55 --measure "relocation abroad" --ia-deviated --lang en
-```
-
----
-
-### Legal checks
-
-#### `check-anhoerung` — Is the dismissal hearing notice valid? Does the deadline run?
-
-For **employees**: an incomplete Anhörungsschreiben means the dismissal may be void, and the BR's deadline has not yet started.  
-For **BR members**: verify completeness before the clock runs out.
-
-```bash
-betriebsrat check-anhoerung "Sehr geehrter Betriebsrat, wir beabsichtigen..."
-betriebsrat check-anhoerung --file anhörung.txt --type ordentlich
-```
-
-#### `massenentlassung` — Do these redundancies trigger § 17 KSchG?
-
-```bash
-betriebsrat massenentlassung --employees 120 --planned-dismissals 15
-betriebsrat massenentlassung --employees 50 --planned-dismissals 8 --lang en
-```
-
-If the threshold is met and the employer skipped the mandatory BA notification procedure, the dismissals are void.
-
-#### `widerspruch-check` — What are the strongest Widerspruch grounds?
-
-For **employees**: a BR Widerspruch means you have a right to continued employment during your court case.  
-For **BR members**: rank grounds by legal strength and get the draft text.
-
-```bash
-betriebsrat widerspruch-check --reason "Sozialauswahl fehlerhaft" --age 52 --years 18
-betriebsrat widerspruch-check --reason "freier Arbeitsplatz vorhanden" --lang en
-```
-
-#### `ki-check` — Does this AI/IT system trigger § 87 Nr. 6 co-determination?
-
-```bash
-betriebsrat ki-check --system "Leistungsmonitoring-Dashboard" --monitors-performance --influences-hr
-betriebsrat ki-check --system "AI recruitment screener" --auto-decision --lang en
-```
-
-#### `tarifvertrag-check` — Does the Tarifvertrag block a planned BV?
-
-Always run before drafting a BV in a TV-regulated area.
-
-```bash
-betriebsrat tarifvertrag-check --topic lohn --tv-type "Branchentarifvertrag" --tv-covers
-betriebsrat tarifvertrag-check --topic homeoffice --no-tv-covers
-betriebsrat tarifvertrag-check --topic software --lang en
-```
-
----
-
-### Document generation
-
-#### `bv-template` — Betriebsvereinbarung skeleton
-
-```bash
-betriebsrat bv-template homeoffice --employer "Musterfirma GmbH"
-betriebsrat bv-template software --agent
-betriebsrat bv-template videoüberwachung --employer "Firma AG"
-betriebsrat bv-template leistungsbeurteilung --employer "TechCo GmbH"
-```
-
-Topics: `homeoffice` · `software` · `arbeitszeit` · `datenschutz` · `videoüberwachung` · `leistungsbeurteilung`
-
-#### `auskunft` — § 80 BetrVG information request to the employer
-
-```bash
-betriebsrat auskunft --topic sozialdaten --reason "Prüfung Sozialauswahl § 102" --employer "Firma GmbH"
-betriebsrat auskunft --topic ki --reason "Einführung KI-Bewertungssystem" --deadline-days 10
-betriebsrat auskunft --topic custom --custom "Überstundenaufstellungen der letzten 12 Monate"
-```
-
-Topics: `sozialdaten` · `stellenplan` · `gehaelter` · `planung` · `auswahlrichtlinien` · `ki` · `wirtschaft` · `custom`
-
-#### `letter` — Formal BR letters
-
-```bash
-betriebsrat letter kündigung --type widerspruch
-betriebsrat letter betriebsänderung --type einigungsstelle
-```
-
-#### `schulungsantrag` — § 37 Abs. 6 training request
-
-```bash
-betriebsrat schulungsantrag --topic betrvg --employer "Musterfirma GmbH"
-betriebsrat schulungsantrag --topic kuendigung --provider "ver.di Bildung" --employer "AG GmbH"
-```
-
-Topics: `betrvg` · `arbeitsrecht` · `betriebsrat-praxis` · `kuendigung` · `sozialplan` · `datenschutz` · `gesundheit` · `custom`
-
-#### `protokoll` — BR meeting minutes template
-
-```bash
-betriebsrat protokoll --topic "Anhörung Kündigung Müller" --br-size 9 --date 2026-05-10
-```
-
----
-
-### Legal reference
-
-#### `law` — BetrVG paragraph in plain language
-
-```bash
-betriebsrat law 87    # co-determination on monitoring systems
-betriebsrat law 102   # dismissal hearing
-betriebsrat law 113   # Nachteilsausgleich individual claims
-betriebsrat law kündigung   # keyword search
-```
-
-#### `prepare-meeting` — Meeting preparation
-
-```bash
-betriebsrat prepare-meeting "Einführung KI-System"
-betriebsrat prepare-meeting "Betriebsänderung" --lang en
-```
-
-#### `context` — Store company profile for calibrated advice
-
-```bash
-betriebsrat context set --employees 85 --tariff true --br-size 7 --sector "Handel"
-betriebsrat context show
-```
-
----
-
-## Output formats
-
-```bash
-# Human-readable (default)
-betriebsrat rights-check "Überwachungssoftware"
-
-# JSON — for scripting, piping, AI agents
-betriebsrat rights-check "Überwachungssoftware" --json
-
-# Agent mode — JSON + compact + no prompts in one flag
-betriebsrat rights-check "Überwachungssoftware" --agent
-
-# English output
-betriebsrat rights-check "Überwachungssoftware" --lang en
-
-# Filter specific fields
-betriebsrat rights-check "Überwachungssoftware" --json --select summary,recommendation
-```
-
-Exit codes: `0` success · `2` usage error · `3` not found · `5` API error · `7` rate limited · `10` config error
-
----
-
-## Use with Claude Code
-
-Tell Claude to install it and describe your situation in plain language — as an employee or BR member, in German or English. The skill detects who you are, runs the right commands, and chains follow-ups automatically (e.g. incomplete Anhörung → consequences; restructuring → sozialplan-calc + nachteilsausgleich).
-
-## Use as an MCP server
-
-```bash
-# Claude Code
-claude mcp add betriebsrat betriebsrat-pp-mcp
-
-# Claude Desktop — add to claude_desktop_config.json
-{
-  "mcpServers": {
-    "betriebsrat": { "command": "betriebsrat-pp-mcp" }
-  }
-}
-```
-
----
-
-## Embedded knowledge commands
-
-These commands use the built-in BetrVG knowledge base and run instantly:
-
-`rights-check` · `decide` · `deadline` · `checklist` · `law` · `codetermination-type` · `consequences` · `letter` · `sozialplan-calc` · `nachteilsausgleich` · `massenentlassung` · `widerspruch-check` · `protokoll` · `auskunft` · `ki-check` · `schulungsantrag` · `tarifvertrag-check` · `bv-template` · `context` · `check-anhoerung`
+## What it knows
+
+- Every paragraph of the *Betriebsverfassungsgesetz* (BetrVG) — the German works constitution law
+- Co-determination rights: when the works council can block, must consent, or is only informed
+- Legal deadlines — including the critical **3-week window** to challenge a dismissal in court
+- Sozialplan and severance calculations (Munich formula)
+- AGG (discrimination), Mutterschutz (maternity), Elternzeit (parental leave), SGB IX (disability)
+- Procedure violations — what happens if the employer didn't follow the rules
 
 ---
 
@@ -382,7 +55,55 @@ These commands use the built-in BetrVG knowledge base and run instantly:
 
 Apache 2.0 — see [LICENSE](LICENSE).
 
-*Legal notice: This tool is for orientation purposes and does not replace professional legal advice. For complex individual cases, consult a labour law specialist or your trade union.*
+*This tool provides legal orientation, not legal advice. For your specific situation, consult a labour law specialist or your trade union.*
+
+---
+
+<details>
+<summary>For developers — CLI reference</summary>
+
+### Install (CLI)
+
+```bash
+go install github.com/googlarz/betriebsrat/cmd/betriebsrat@latest
+betriebsrat doctor
+```
+
+### Key commands
+
+```bash
+betriebsrat ask "Ich wurde entlassen. Was nun?"
+betriebsrat rights-check "KI-Überwachungssystem einführen" --agent
+betriebsrat decide "Massenentlassung 20 Personen" --json
+betriebsrat sozialplan-calc --salary 3500 --years 7
+betriebsrat nachteilsausgleich --salary 3500 --years 7 --no-ia-attempted
+betriebsrat check-anhoerung "<text des Anhörungsschreibens>"
+betriebsrat deadline kuendigung --from 2026-05-10
+betriebsrat law 102
+betriebsrat bv-template homeoffice
+betriebsrat ki-check "Teams-Analysefunktion zur Produktivitätsmessung"
+betriebsrat massenentlassung --employees 120 --affected 25
+```
+
+### MCP server
+
+```bash
+# Claude Code
+claude mcp add betriebsrat betriebsrat-pp-mcp
+
+# Claude Desktop
+{
+  "mcpServers": {
+    "betriebsrat": { "command": "betriebsrat-pp-mcp" }
+  }
+}
+```
+
+### Output flags
+
+`--json` · `--agent` · `--lang en` · `--lang de`
+
+</details>
 
 ---
 
@@ -392,262 +113,52 @@ Apache 2.0 — see [LICENSE](LICENSE).
 
 # betriebsrat — Deutsche Dokumentation
 
-**Arbeitsrechte verstehen. Für Arbeitnehmer und Betriebsratsmitglieder.**
+**Arbeitsrechte kennen — für Arbeitnehmer und Betriebsratsmitglieder.**
 
-Deutsches Arbeitsrecht ist detailliert, fristengebunden und voller Rechte, von denen die meisten Menschen nichts wissen. Dieses Tool macht dieses Wissen sofort zugänglich — egal ob Sie Betriebsratsmitglied sind und Ihre Arbeit erledigen wollen, oder Arbeitnehmer, der verstehen möchte, was der Arbeitgeber mit Ihnen machen kann und was nicht.
-
-Kein API-Key. Kein Login. Kein Abo.
+Das deutsche Arbeitsrecht steckt voller Rechte, von denen die meisten Menschen nichts wissen. Dieses Tool macht sie sofort zugänglich — in einfacher Sprache, auf Deutsch oder Englisch, ohne dass Sie selbst Jura studiert haben müssen.
 
 ---
 
-## Für wen ist das?
+## Was kann ich fragen?
 
-### Arbeitnehmer
+Beschreiben Sie Ihre Situation einfach in Ihren eigenen Worten. Ein paar Beispiele:
 
-Sie stehen vor einer Kündigung, Versetzung, Umstrukturierung oder einer neuen Überwachungstechnik am Arbeitsplatz. Sie wollen wissen: **Wurde das Verfahren eingehalten? Was steht mir zu? Was sind meine Rechte?**
+**Als Arbeitnehmer:**
+- „Ich habe eine Kündigung erhalten. Wurde der Betriebsrat ordnungsgemäß angehört?"
+- „Mein Arbeitgeber restrukturiert den Betrieb — was steht mir zu?"
+- „Was ist ein Betriebsrat und was kann er für mich tun?"
+- „Ich wurde ohne mein Einverständnis versetzt. Ist das erlaubt?"
+- „Habe ich Anspruch auf eine Abfindung? Ich arbeite hier seit 7 Jahren und verdiene 3.500 € monatlich."
+- „Ich bin schwanger und mein Arbeitgeber will meinen Vertrag beenden."
+- „Mein Arbeitgeber hat eine Überwachungssoftware eingeführt. Musste der Betriebsrat zustimmen?"
 
-| Ihre Frage | Befehl |
-|---|---|
-| Darf mein Arbeitgeber mich kündigen, ohne den BR zu fragen? | `consequences kündigung` |
-| Mein Unternehmen restrukturiert — was steht mir zu? | `sozialplan-calc` + `nachteilsausgleich` |
-| Sie führen Überwachungssoftware ein — kann der BR das stoppen? | `rights-check` + `ki-check` |
-| Ist meine Kündigung wirksam, wenn der BR nicht richtig angehört wurde? | `check-anhoerung` + `consequences kündigung` |
-| Ich werde versetzt — brauchten sie die Zustimmung des BR? | `rights-check` + `consequences versetzung` |
-| Was darf der BR überhaupt in meiner Situation tun? | `decide` |
-| Wie viel Abfindung steht mir zu? | `sozialplan-calc` |
-| Der AG hat keinen Interessenausgleich versucht — kann ich mehr verlangen? | `nachteilsausgleich` |
-
-### Betriebsratsmitglieder
-
-Sie bearbeiten eine Mitbestimmungssituation — Kündigungsanhörungen, Umstrukturierungen, neue IT-Systeme, BV-Verhandlungen. Sie brauchen die richtige Antwort schnell, die korrekte Frist und das richtige Dokument.
-
-| Ihre Frage | Befehl |
-|---|---|
-| Haben wir hier ein Mitbestimmungsrecht? | `rights-check` |
-| Welche Art von Recht ist es — können wir das wirklich blockieren? | `codetermination-type` |
-| Was ist unsere Frist und was passiert, wenn wir sie versäumen? | `deadline` + `consequences` |
-| Was sollen wir jetzt tun, Schritt für Schritt? | `decide` |
-| Ist dieses Anhörungsschreiben vollständig? Läuft unsere Frist? | `check-anhoerung` |
-| Betriebsvereinbarung für dieses Thema erstellen | `bv-template` |
-| Sperrt der Tarifvertrag uns, eine BV zu schreiben? | `tarifvertrag-check` |
-| Löst dieses KI-System § 87 Nr. 6 aus? | `ki-check` |
-| Wir müssen Informationen vom Arbeitgeber anfordern | `auskunft` |
-| Was sind unsere stärksten Widerspruchsgründe? | `widerspruch-check` |
-| Sozialplan für alle betroffenen Mitarbeiter berechnen | `sozialplan-calc --csv` |
-| Schulungsantrag nach § 37 Abs. 6 stellen | `schulungsantrag` |
-| Lösen diese Entlassungen § 17 KSchG aus? | `massenentlassung` |
+**Als Betriebsratsmitglied:**
+- „Wir haben ein Anhörungsschreiben für eine Kündigung erhalten. Was müssen wir tun und bis wann?"
+- „Der Arbeitgeber will einen KI-Schreibassistenten einführen. Haben wir ein Mitbestimmungsrecht?"
+- „Uns droht eine Massenentlassung von 20 Personen. Was ist unsere Rolle?"
+- „Können wir einen Sozialplan erzwingen, wenn der Arbeitgeber nicht verhandeln will?"
+- „Wir wollen eine Homeoffice-Regelung aushandeln. Wo fangen wir an?"
 
 ---
 
-## Installation
+## Wie bekomme ich das Tool?
 
 Sagen Sie Claude, es soll installieren:
 
 > Install this: https://github.com/googlarz/betriebsrat
 
-Claude übernimmt den Rest. Prüfen mit `betriebsrat doctor`.
+Claude übernimmt den Rest. Dann beschreiben Sie einfach Ihre Situation.
 
 ---
 
-## Schnellstart
-
-```bash
-# Wissensdatenbank befüllen (einmalig)
-betriebsrat sync
-
-# --- ALS ARBEITNEHMER ---
-
-# "Mein AG kündigt mir — wurde der BR richtig angehört?"
-betriebsrat consequences kündigung
-
-# "Ich bin von einer Umstrukturierung betroffen — was steht mir zu?"
-betriebsrat sozialplan-calc --salary 4500 --years 10 --age 45
-
-# "Der AG hat keinen IA versucht — kann ich mehr verlangen?"
-betriebsrat nachteilsausgleich --salary 4500 --years 10 --age 45 --measure "Standortschließung" --no-ia-attempted
-
-# "Neue Überwachungssoftware — muss der BR zustimmen?"
-betriebsrat rights-check "Arbeitgeber führt Leistungsmonitoring ein"
-
-# --- ALS BETRIEBSRATSMITGLIED ---
-
-# "Haben wir ein Mitbestimmungsrecht?"
-betriebsrat rights-check "Arbeitgeber will Überwachungssoftware einführen"
-
-# "Was ist unsere Frist?"
-betriebsrat deadline "ordentliche Kündigung" --from $(date +%Y-%m-%d)
-
-# "Vollständige Entscheidungshilfe"
-betriebsrat decide "Betrieb soll nach München verlagert werden"
-
-# "Englische Ausgabe bei jedem Befehl"
-betriebsrat rights-check "Massenentlassung 15 Mitarbeiter" --lang en
-```
-
----
-
-## Befehle im Detail
-
-### Rechte und Konsequenzen verstehen
-
-#### `rights-check` — Hat der BR ein Mitbestimmungsrecht in dieser Situation?
-
-Nützlich für **Arbeitnehmer** ("Hätte der BR hier einbezogen werden müssen?") und **BR-Mitglieder** ("Haben wir hier ein Wort mitzureden?").
-
-```bash
-betriebsrat rights-check "Arbeitgeber will Überwachungssoftware einführen"
-betriebsrat rights-check "Ich soll in eine andere Stadt versetzt werden"
-```
-
-#### `consequences` — Was passiert bei Verfahrensfehlern?
-
-Für **Arbeitnehmer**: Wenn der BR nicht angehört wurde oder Fristen versäumt wurden — was bedeutet das für die Wirksamkeit der Maßnahme gegen Sie?  
-Für **BR-Mitglieder**: Welchen Hebel haben Sie, und was passiert, wenn *Sie* die Frist versäumen?
-
-```bash
-betriebsrat consequences kündigung      # Kündigung ohne ordentliche Anhörung
-betriebsrat consequences betriebsänderung  # Umstrukturierung ohne Interessenausgleich
-betriebsrat consequences software       # Überwachungssystem ohne BV
-betriebsrat consequences br-deadline    # BR hat nicht rechtzeitig geantwortet
-```
-
-#### `decide` — Vollständige Situationsanalyse
-
-```bash
-betriebsrat decide "Betrieb soll nach München verlagert werden"
-betriebsrat decide "Arbeitgeber kündigt 15 Mitarbeiter"
-```
-
----
-
-### Fristen
-
-#### `deadline` — Gesetzliche Fristen berechnen
-
-Für **Arbeitnehmer**: Wissen wann das BR-Zeitfenster schließt — danach gilt Schweigen als Zustimmung.  
-Für **BR-Mitglieder**: Das genaue Datum berechnen, bis zu dem Sie antworten müssen.
-
-```bash
-betriebsrat deadline "ordentliche Kündigung" --from 2026-05-10
-betriebsrat deadline "außerordentliche Kündigung" --from 2026-05-10
-# Als Kalenderdatei exportieren
-betriebsrat deadline "ordentliche Kündigung" --from 2026-05-10 --ical > frist.ics
-```
-
----
-
-### Berechnungen
-
-#### `sozialplan-calc` — Wie viel Abfindung steht einem Mitarbeiter zu?
-
-Für **Arbeitnehmer**: Herausfinden, was Ihnen zusteht.  
-Für **BR-Mitglieder**: Ansprüche aller betroffenen Mitarbeiter berechnen und vergleichen.
-
-```bash
-betriebsrat sozialplan-calc --salary 4500 --years 12 --age 48
-betriebsrat sozialplan-calc --salary 6000 --years 20 --age 55 --disabled
-# Stapelmodus für alle betroffenen Mitarbeiter (CSV)
-betriebsrat sozialplan-calc --csv mitarbeiter.csv --agent
-```
-
-#### `nachteilsausgleich` — Kann ich mehr verlangen, weil der AG den Interessenausgleich übergangen hat?
-
-Für **Arbeitnehmer**: Wenn der AG eine Betriebsänderung ohne Versuch eines Interessenausgleichs durchgeführt hat, hat jeder betroffene Arbeitnehmer einen individuellen Abfindungsanspruch nach § 113 BetrVG.
-
-```bash
-betriebsrat nachteilsausgleich --salary 4500 --years 8 --age 42 --measure "Standortschließung" --no-ia-attempted
-betriebsrat nachteilsausgleich --salary 6000 --years 15 --age 55 --measure "Verlagerung ins Ausland" --ia-deviated
-```
-
----
-
-### Rechtliche Prüfungen
-
-#### `check-anhoerung` — Ist das Anhörungsschreiben vollständig? Läuft die Frist?
-
-Für **Arbeitnehmer**: Ein unvollständiges Anhörungsschreiben bedeutet, dass die Kündigung möglicherweise unwirksam ist und die BR-Frist noch gar nicht zu laufen begonnen hat.
-
-```bash
-betriebsrat check-anhoerung "Sehr geehrter Betriebsrat, wir beabsichtigen..."
-betriebsrat check-anhoerung --file anhörung.txt --type ordentlich
-```
-
-#### `widerspruch-check` — Was sind die stärksten Widerspruchsgründe?
-
-Für **Arbeitnehmer**: Ein BR-Widerspruch bedeutet, dass Sie das Recht auf Weiterbeschäftigung während Ihres Gerichtsverfahrens haben (§ 102 Abs. 5 BetrVG).
-
-```bash
-betriebsrat widerspruch-check --reason "Sozialauswahl fehlerhaft" --age 52 --years 18
-betriebsrat widerspruch-check --reason "freier Arbeitsplatz vorhanden"
-```
-
-#### `massenentlassung` — Lösen diese Entlassungen § 17 KSchG aus?
-
-```bash
-betriebsrat massenentlassung --employees 120 --planned-dismissals 15
-```
-
-Wenn der Schwellenwert überschritten wird und der AG das Pflichtverfahren bei der BA übersprungen hat, sind die Kündigungen unwirksam.
-
-#### `ki-check` + `tarifvertrag-check`
-
-```bash
-betriebsrat ki-check --system "KI-Recruiting-Tool" --auto-decision
-betriebsrat tarifvertrag-check --topic lohn --tv-covers
-```
-
----
-
-### Dokumentenerstellung
-
-```bash
-# Betriebsvereinbarung
-betriebsrat bv-template homeoffice --employer "Musterfirma GmbH"
-betriebsrat bv-template videoüberwachung --employer "Firma AG"
-betriebsrat bv-template leistungsbeurteilung --employer "TechCo GmbH"
-
-# Auskunftsverlangen an den AG
-betriebsrat auskunft --topic sozialdaten --employer "Firma GmbH"
-betriebsrat auskunft --topic ki --reason "Einführung KI-Bewertungssystem"
-
-# Schulungsantrag
-betriebsrat schulungsantrag --topic betrvg --employer "Musterfirma GmbH"
-
-# BR-Sitzungsprotokoll
-betriebsrat protokoll --topic "Anhörung Kündigung Müller" --br-size 9
-```
-
----
-
-### Nachschlagewerk
-
-```bash
-# BetrVG-Paragraf in Alltagssprache
-betriebsrat law 87    # Mitbestimmung bei Überwachungstechnik
-betriebsrat law 102   # Kündigungsanhörung
-betriebsrat law 113   # Nachteilsausgleich
-
-# Stichwortsuche
-betriebsrat law kündigung
-betriebsrat law versetzung
-
-# Betriebsprofil für kalibrierte Beratung
-betriebsrat context set --employees 85 --tariff true --br-size 7
-```
-
----
-
-## Verwendung mit Claude Code
-
-Sagen Sie Claude, es soll installieren, und beschreiben Sie dann Ihre Situation auf Deutsch oder Englisch — als Arbeitnehmer oder BR-Mitglied. Der Skill erkennt den Kontext, führt die richtigen Befehle aus und kettet Folgeschritte automatisch (z.B. unvollständige Anhörung → Konsequenzen; Umstrukturierung → Sozialplan + Nachteilsausgleich).
-
----
-
-## Eingebettete Wissensdatenbank
-
-Diese Befehle nutzen die eingebettete BetrVG-Wissensdatenbank und laufen sofort:
-
-`rights-check` · `decide` · `deadline` · `checklist` · `law` · `codetermination-type` · `consequences` · `letter` · `sozialplan-calc` · `nachteilsausgleich` · `massenentlassung` · `widerspruch-check` · `protokoll` · `auskunft` · `ki-check` · `schulungsantrag` · `tarifvertrag-check` · `bv-template` · `context` · `check-anhoerung`
+## Was das Tool weiß
+
+- Alle Paragrafen des Betriebsverfassungsgesetzes (BetrVG)
+- Mitbestimmungsrechte: wann der Betriebsrat blockieren kann, zustimmen muss oder nur informiert wird
+- Gesetzliche Fristen — einschließlich der kritischen **3-Wochen-Frist** für die Kündigungsschutzklage
+- Sozialplan- und Abfindungsberechnungen (Münchner Formel)
+- AGG (Diskriminierungsschutz), Mutterschutz, Elternzeit (BEEG), SGB IX (Schwerbehinderung)
+- Verfahrensfehler — was passiert, wenn der Arbeitgeber die Regeln nicht eingehalten hat
 
 ---
 
@@ -655,4 +166,38 @@ Diese Befehle nutzen die eingebettete BetrVG-Wissensdatenbank und laufen sofort:
 
 Apache 2.0 — siehe [LICENSE](LICENSE).
 
-*Rechtlicher Hinweis: Dieses Tool dient der rechtlichen Orientierung und ersetzt keine anwaltliche Beratung. Bei komplexen Einzelfällen empfehlen wir die Konsultation eines Fachanwalts für Arbeitsrecht oder Ihrer Gewerkschaft.*
+*Dieses Tool bietet rechtliche Orientierung, keine Rechtsberatung. Für Ihren konkreten Fall wenden Sie sich an einen Fachanwalt für Arbeitsrecht oder Ihre Gewerkschaft.*
+
+---
+
+<details>
+<summary>Für Entwickler — CLI-Referenz</summary>
+
+### Installation (CLI)
+
+```bash
+go install github.com/googlarz/betriebsrat/cmd/betriebsrat@latest
+betriebsrat doctor
+```
+
+### Wichtige Befehle
+
+```bash
+betriebsrat ask "Ich wurde entlassen. Was nun?"
+betriebsrat rights-check "KI-Überwachungssystem einführen" --agent
+betriebsrat decide "Massenentlassung 20 Personen" --json
+betriebsrat sozialplan-calc --salary 3500 --years 7
+betriebsrat nachteilsausgleich --salary 3500 --years 7 --no-ia-attempted
+betriebsrat check-anhoerung "<text des Anhörungsschreibens>"
+betriebsrat deadline kuendigung --from 2026-05-10
+betriebsrat law 102
+betriebsrat bv-template homeoffice
+betriebsrat ki-check "Teams-Analysefunktion zur Produktivitätsmessung"
+betriebsrat massenentlassung --employees 120 --affected 25
+```
+
+### Ausgabeformate
+
+`--json` · `--agent` · `--lang en` · `--lang de`
+
+</details>
