@@ -16,23 +16,23 @@ Just describe your situation. Here are examples of what the tool considers when 
 
 > "Can I get severance? I've worked here 7 years and earn €3,500 a month."
 
-Based on 7 years and €3,500/month, the Munich formula estimates around €12,250. Whether you can claim it depends on whether a Sozialplan was agreed — or bypassed.
+*Considers: years of service and salary against the Munich formula, whether a Sozialplan exists or was bypassed, company size threshold.*
 
 > "I received a dismissal notice. Was the works council properly consulted?"
 
-The works council must be heard before every dismissal (§ 102 BetrVG). If the employer skipped this step or gave incomplete information, the dismissal is invalid — regardless of the stated reason.
+*Considers: whether a hearing notice was issued at all, completeness of social data and stated reason, applicable deadline (§ 102 BetrVG), consequence of missing or defective consultation.*
 
 > "I'm pregnant and my employer wants to end my contract."
 
-Termination during pregnancy is prohibited under the Mutterschutzgesetz — even if the employer doesn't know yet. You have 2 weeks after receiving the notice to inform them, and the protection applies retroactively.
+*Considers: Mutterschutzgesetz protection period, 2-week retroactive notification rule, whether the employer knew about the pregnancy, SGB IX if a disability is also involved.*
 
 > "My employer introduced monitoring software. Did the works council have to agree?"
 
-Yes — any software that can track performance or behaviour requires works council consent (§ 87 BetrVG). If it was rolled out without agreement, the BR can demand it be stopped.
+*Considers: whether the software can track performance or behaviour — directly or via logs — triggering § 87 Abs. 1 Nr. 6 BetrVG, whether a Betriebsvereinbarung was negotiated, remedy if it wasn't.*
 
 > "I was transferred to a different location without my agreement. Is that allowed?"
 
-Transfers require works council approval (§ 99 BetrVG). If the BR wasn't consulted, or the new location significantly changes your working conditions, the transfer can be challenged.
+*Considers: whether the BR was asked for consent (§ 99 BetrVG), how significantly the working conditions change, valid grounds for refusal, and what you can do if consent was skipped.*
 
 ---
 
@@ -40,19 +40,19 @@ Transfers require works council approval (§ 99 BetrVG). If the BR wasn't consul
 
 > "We received a dismissal hearing notice. What must we do and by when?"
 
-You have 1 week for ordinary dismissals, 3 days for immediate ones. Check that the employer provided complete social data and a reason. Objecting gives the employee a right to continued employment while the dispute is pending.
+*Considers: type of dismissal (ordinary vs. immediate) → 1-week or 3-day deadline, completeness of social data and reason, grounds for objection under § 102 Abs. 3, effect of objection on continued employment.*
 
 > "The employer wants to introduce an AI writing assistant. Do we have co-determination rights?"
 
-Yes, under § 87 Abs. 1 Nr. 6 BetrVG if the tool can monitor output or behaviour — even indirectly. You should negotiate a Betriebsvereinbarung covering purpose, data access, and retention before rollout begins.
+*Considers: whether the tool can monitor output or behaviour even indirectly (§ 87 Nr. 6), DSGVO Art. 35 data protection impact assessment, what a Betriebsvereinbarung must cover, whether rollout can be blocked.*
 
 > "We're facing a mass layoff of 20 people. What's our role?"
 
-The employer must consult you at least 30 days before filing the mass layoff notice with the employment agency. You can negotiate a Sozialplan — and force one through the Einigungsstelle if the employer refuses.
+*Considers: thresholds under § 17 KSchG, 30-day consultation requirement before the employer files with the employment agency, Sozialplan calculation using Munich formula, Einigungsstelle route if employer refuses.*
 
 > "Can we force a Sozialplan if the employer refuses to negotiate?"
 
-Yes. Under § 112 Abs. 4 BetrVG, the Sozialplan is erzwingbar — you can call the Einigungsstelle, which will set binding terms if negotiations fail.
+*Considers: erzwingbare Mitbestimmung under § 112 Abs. 4 BetrVG, how to call the Einigungsstelle, what it can and cannot decide, timeline.*
 
 ---
 
@@ -153,23 +153,23 @@ Beschreiben Sie einfach Ihre Situation. Hier sind Beispiele dafür, was das Tool
 
 > „Habe ich Anspruch auf eine Abfindung? Ich arbeite hier seit 7 Jahren und verdiene 3.500 € monatlich."
 
-Nach der Münchner Formel ergibt sich bei 7 Jahren und 3.500 € ein Richtwert von ca. 12.250 €. Ob ein Anspruch besteht, hängt davon ab, ob ein Sozialplan vereinbart wurde — oder übergangen wurde.
+*Berücksichtigt: Betriebszugehörigkeit und Gehalt gegen die Münchner Formel, ob ein Sozialplan besteht oder übergangen wurde, Betriebsgröße.*
 
 > „Ich habe eine Kündigung erhalten. Wurde der Betriebsrat ordnungsgemäß angehört?"
 
-Vor jeder Kündigung muss der Betriebsrat angehört werden (§ 102 BetrVG). Fehlt die Anhörung oder waren die Angaben unvollständig, ist die Kündigung unwirksam — unabhängig vom angegebenen Grund.
+*Berücksichtigt: ob überhaupt ein Anhörungsschreiben ergangen ist, Vollständigkeit von Sozialdaten und Kündigungsgrund, einzuhaltende Frist (§ 102 BetrVG), Folgen einer fehlenden oder fehlerhaften Anhörung.*
 
 > „Ich bin schwanger und mein Arbeitgeber will meinen Vertrag beenden."
 
-Eine Kündigung während der Schwangerschaft ist nach dem Mutterschutzgesetz verboten — auch wenn der Arbeitgeber davon noch nichts weiß. Sie haben nach Erhalt der Kündigung 2 Wochen Zeit, ihn zu informieren; der Schutz gilt rückwirkend.
+*Berücksichtigt: Schutzfrist nach dem Mutterschutzgesetz, 2-Wochen-Regel zur rückwirkenden Mitteilung, ob der Arbeitgeber Kenntnis hatte, zusätzlicher Schutz nach SGB IX bei gleichzeitiger Behinderung.*
 
 > „Mein Arbeitgeber hat eine Überwachungssoftware eingeführt. Musste der Betriebsrat zustimmen?"
 
-Ja — jede Software, die Leistung oder Verhalten erfassen kann, bedarf der Zustimmung des Betriebsrats (§ 87 BetrVG). Wurde sie ohne Einigung eingeführt, kann der BR verlangen, dass der Einsatz gestoppt wird.
+*Berücksichtigt: ob die Software Leistung oder Verhalten erfassen kann — auch mittelbar über Logs — (§ 87 Abs. 1 Nr. 6 BetrVG), ob eine Betriebsvereinbarung ausgehandelt wurde, mögliche Rechtsfolgen bei fehlender Einigung.*
 
 > „Ich wurde ohne mein Einverständnis versetzt. Ist das erlaubt?"
 
-Versetzungen bedürfen der Zustimmung des Betriebsrats (§ 99 BetrVG). Wurde dieser nicht beteiligt oder ändern sich die Arbeitsbedingungen wesentlich, kann die Versetzung angefochten werden.
+*Berücksichtigt: ob der BR um Zustimmung gebeten wurde (§ 99 BetrVG), wie stark sich die Arbeitsbedingungen ändern, Verweigerungsgründe und Handlungsmöglichkeiten bei übergangener Beteiligung.*
 
 ---
 
@@ -177,19 +177,19 @@ Versetzungen bedürfen der Zustimmung des Betriebsrats (§ 99 BetrVG). Wurde die
 
 > „Wir haben ein Anhörungsschreiben für eine Kündigung erhalten. Was müssen wir tun und bis wann?"
 
-Bei ordentlichen Kündigungen haben Sie 1 Woche, bei fristlosen 3 Tage. Prüfen Sie, ob Sozialdaten und Kündigungsgrund vollständig angegeben wurden. Ein Widerspruch gibt dem Arbeitnehmer das Recht auf Weiterbeschäftigung während eines laufenden Verfahrens.
+*Berücksichtigt: Kündigungsart (ordentlich vs. fristlos) → Frist 1 Woche oder 3 Tage, Vollständigkeit von Sozialdaten und Grund, Widerspruchsgründe nach § 102 Abs. 3, Wirkung eines Widerspruchs auf Weiterbeschäftigung.*
 
 > „Der Arbeitgeber will einen KI-Schreibassistenten einführen. Haben wir ein Mitbestimmungsrecht?"
 
-Ja, nach § 87 Abs. 1 Nr. 6 BetrVG, wenn das Tool Leistung oder Verhalten — auch mittelbar — erfassen kann. Handeln Sie eine Betriebsvereinbarung zu Zweck, Datenzugriff und Löschfristen aus, bevor die Einführung beginnt.
+*Berücksichtigt: ob das Tool Leistung oder Verhalten auch mittelbar erfassen kann (§ 87 Nr. 6), Datenschutz-Folgenabschätzung nach DSGVO Art. 35, notwendige Inhalte einer Betriebsvereinbarung, ob die Einführung blockiert werden kann.*
 
 > „Uns droht eine Massenentlassung von 20 Personen. Was ist unsere Rolle?"
 
-Der Arbeitgeber muss Sie mindestens 30 Tage vor Einreichung der Massenentlassungsanzeige bei der Agentur für Arbeit konsultieren. Sie können einen Sozialplan verhandeln — und ihn über die Einigungsstelle erzwingen, wenn der Arbeitgeber die Verhandlung verweigert.
+*Berücksichtigt: Schwellenwerte nach § 17 KSchG, 30-tägige Konsultationspflicht vor der Anzeige bei der Agentur für Arbeit, Sozialplanberechnung nach der Münchner Formel, Einigungsstellenverfahren bei Verweigerung des Arbeitgebers.*
 
 > „Können wir einen Sozialplan erzwingen, wenn der Arbeitgeber nicht verhandeln will?"
 
-Ja. Nach § 112 Abs. 4 BetrVG ist der Sozialplan erzwingbar — Sie können die Einigungsstelle anrufen, die bei gescheiterten Verhandlungen verbindliche Bedingungen festlegt.
+*Berücksichtigt: erzwingbare Mitbestimmung nach § 112 Abs. 4 BetrVG, Einleitung des Einigungsstellenverfahrens, Entscheidungsbefugnis der Einigungsstelle, Zeitrahmen.*
 
 ---
 
