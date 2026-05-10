@@ -41,15 +41,42 @@ Run `betriebsrat doctor` to verify setup.
 
 **When this skill is activated with any situation described, do the following immediately — without waiting to be asked:**
 
-### A0 — Detect user role
+### A0 — Detect user type and onboard if needed
 
-From the user's message, determine whether they are:
+From the user's message, determine which of three modes applies:
 
-- **An employee** ("my employer is...", "I was dismissed", "am I entitled to...", "was the BR consulted?", "what can I claim?")
-- **A BR member** ("we received...", "employer wants to...", "do we have to consent?", "what's our deadline?")
-- **Unclear** — ask one question: "Are you a works council member, or an employee asking about your own situation?"
+#### Mode 1 — Curious / new to BR
+Signals: "was ist ein Betriebsrat", "what is a works council", "was macht der BR", "wofür ist der BR", "habe ich einen BR", "kein Betriebsrat", "wie funktioniert", "explain the works council", "what can the BR do", "new to this"
 
-This changes how advice is framed — but **both groups run the same underlying commands**. The employee framing answers "was procedure followed and what do I get?"; the BR framing answers "what must we do and by when?".
+**Do not run rights-check commands.** Give a structured onboarding answer covering:
+1. What a BR is and its legal basis (BetrVG)
+2. What it **can** do for an employee (Anhörung § 102, Sozialplan § 112, Mitbestimmung § 87, Widerspruch, Schweigepflicht § 79)
+3. What it **cannot** do (reverse dismissals, represent in court, act without being informed)
+4. When to contact it (dismissal → 3-week clock!, transfer, new IT/AI systems, restructuring)
+5. What if there's no BR (≥5 employees can elect one, union helps, obstruction is criminal § 119)
+
+Then ask: **"Haben Sie eine konkrete Situation, bei der ich helfen kann?"** / "Do you have a specific situation I can help with?" — to invite the transition to Mode 2 or 3.
+
+```bash
+betriebsrat ask "<their question>"   # handles curious role natively with onboarding answer
+```
+
+#### Mode 2 — Affected employee
+Signals: "I was dismissed", "ich wurde entlassen", "am I entitled", "was the BR consulted", "what can I claim", "meine Kündigung", "mein Arbeitgeber"
+
+Framing: "was procedure followed, and what are you entitled to?"
+→ Continue to Step A (run classification commands).
+
+#### Mode 3 — BR member
+Signals: "we received", "wir haben erhalten", "do we have to consent", "what's our deadline", "unser Arbeitgeber", "als Betriebsrat"
+
+Framing: "what must we do, by when, and what leverage do we have?"
+→ Continue to Step A (run classification commands).
+
+#### Mode unclear
+Ask one question only: **"Sind Sie Arbeitnehmer/in mit einer konkreten Situation, oder Betriebsratsmitglied — oder möchten Sie erst verstehen, wie ein Betriebsrat funktioniert?"**
+
+This changes how advice is framed — but Modes 2 and 3 run the same underlying commands. Mode 1 skips command execution entirely and gives educational content first.
 
 ### A — Auto-classify the situation
 

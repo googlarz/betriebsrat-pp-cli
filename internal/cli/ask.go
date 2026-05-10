@@ -85,8 +85,11 @@ Examples (BR member):
 			fmt.Fprintf(w, "%s\n\n", tr(lang, "Frage", "Question")+": "+result.Question)
 
 			roleLabel := tr(lang, "Betriebsratsmitglied", "Works council member")
-			if result.UserRole == "employee" {
+			switch result.UserRole {
+			case "employee":
 				roleLabel = tr(lang, "Arbeitnehmer", "Employee")
+			case "curious":
+				roleLabel = tr(lang, "Neu/Orientierung", "New / exploring")
 			}
 			fmt.Fprintf(w, "%s: %s\n", tr(lang, "Erkannte Rolle", "Detected role"), roleLabel)
 			fmt.Fprintf(w, "%s: %s\n\n", tr(lang, "Einordnung", "Classification"), result.Classification)
@@ -132,6 +135,22 @@ Examples (BR member):
 // buildAskResult is the pure logic behind the ask command — callable from serve.go.
 func buildAskResult(lang, question string) askResult {
 	role := detectRole(question)
+
+	// Curious users get onboarding — skip rights lookup entirely.
+	if role == "curious" {
+		return askResult{
+			Question:       question,
+			Lang:           lang,
+			UserRole:       "curious",
+			Classification: tr(lang, "Grundlagenfrage – Betriebsrat-Einführung", "Introductory question – Works council basics"),
+			Answer:         buildOnboardingAnswer(lang, question),
+			Actions:        buildOnboardingActions(lang, question),
+			Disclaimer: tr(lang,
+				"Dies ist eine rechtliche Orientierungshilfe, kein Rechtsgutachten. Für Ihren konkreten Fall konsultieren Sie einen Fachanwalt für Arbeitsrecht.",
+				"This is legal orientation only, not legal advice. Consult a labour law specialist for your specific situation."),
+		}
+	}
+
 	words := tokenize(question)
 	paras := betrvg.ByKeywords(words)
 	strongest := betrvg.Keine
@@ -220,6 +239,103 @@ func buildAskResult(lang, question string) askResult {
 	}
 
 	return result
+}
+
+func buildOnboardingAnswer(lang, question string) string {
+	low := strings.ToLower(question)
+
+	// "Do I have a BR / no BR" variant
+	if containsAny(low, "habe ich einen betriebsrat", "do i have a works council",
+		"gibt es einen betriebsrat", "is there a works council", "kein betriebsrat", "no works council") {
+		return tr(lang,
+			"Ein Betriebsrat muss nicht automatisch existieren — er muss von den Arbeitnehmern gewählt werden.\n\n"+
+				"Ab 5 wahlberechtigten Arbeitnehmern in einem Betrieb kann ein Betriebsrat gewählt werden (§ 1 BetrVG). Ob es in Ihrem Betrieb einen gibt, erfahren Sie bei der Personalabteilung, am schwarzen Brett oder über Ihre Gewerkschaft.\n\n"+
+				"Gibt es keinen BR? Die Gewerkschaft kann die Gründung unterstützen. Arbeitgeber dürfen die Wahl nicht behindern (Behinderung ist strafbar, § 119 BetrVG).",
+			"A works council does not exist automatically — it must be elected by the employees.\n\n"+
+				"A works council can be elected wherever 5 or more eligible employees work (§ 1 BetrVG). To find out if your company has one, check with HR, the notice board, or your trade union.\n\n"+
+				"No works council? The union can support the founding process. Employers may not obstruct an election — doing so is a criminal offence (§ 119 BetrVG).")
+	}
+
+	// "What can / can't the BR do" variant
+	if containsAny(low, "was kann der betriebsrat", "what can the works council", "was darf", "what may",
+		"was macht", "what does") {
+		return tr(lang,
+			"Was der Betriebsrat für Sie tun kann:\n"+
+				"• Muss bei jeder Kündigung angehört werden — ohne Anhörung ist die Kündigung unwirksam (§ 102 BetrVG)\n"+
+				"• Kann Widerspruch gegen fehlerhafte Sozialauswahl einlegen → gibt Ihnen Recht auf Weiterbeschäftigung während eines Kündigungsschutzprozesses\n"+
+				"• Erzwingt einen Sozialplan bei Massenentlassungen oder Betriebsänderungen (§ 112 BetrVG)\n"+
+				"• Muss neuen Überwachungs- und KI-Systemen zustimmen (§ 87 Abs. 1 Nr. 6 BetrVG)\n"+
+				"• Hat Auskunfts- und Einsichtsrechte gegenüber dem Arbeitgeber (§ 80 BetrVG)\n\n"+
+				"Was der Betriebsrat nicht kann:\n"+
+				"• Eine Kündigung direkt rückgängig machen — das ist Sache des Arbeitsgerichts\n"+
+				"• Sie im Gerichtsverfahren vertreten — das übernehmen Gewerkschaft oder Anwalt\n"+
+				"• Von sich aus tätig werden, wenn er nichts von Ihrer Situation weiß — informieren Sie ihn aktiv",
+			"What the works council can do for you:\n"+
+				"• Must be consulted before every dismissal — without consultation the dismissal is void (§ 102 BetrVG)\n"+
+				"• Can object to incorrect social selection → gives you the right to continued employment during a court case\n"+
+				"• Can enforce a Sozialplan in mass layoffs or restructurings (§ 112 BetrVG)\n"+
+				"• Must approve new monitoring or AI systems (§ 87 Abs. 1 Nr. 6 BetrVG)\n"+
+				"• Has information and inspection rights against the employer (§ 80 BetrVG)\n\n"+
+				"What the works council cannot do:\n"+
+				"• Directly reverse a dismissal — that is for the labour court\n"+
+				"• Represent you in court proceedings — that is done by a union or lawyer\n"+
+				"• Act on your behalf without knowing your situation — you must inform it proactively")
+	}
+
+	// Default: full intro
+	return tr(lang,
+		"Der Betriebsrat (BR) ist die gewählte Interessenvertretung der Arbeitnehmer im Betrieb — geregelt im Betriebsverfassungsgesetz (BetrVG).\n\n"+
+			"Was der BR für Sie tun kann:\n"+
+			"• Muss bei jeder Kündigung angehört werden (§ 102) — ohne Anhörung ist die Kündigung unwirksam\n"+
+			"• Kann Sozialplan bei Stellenabbau erzwingen (§ 112)\n"+
+			"• Muss neuen IT-/KI-Systemen und Überwachung zustimmen (§ 87 Nr. 6)\n"+
+			"• Kann Widerspruch gegen falsche Sozialauswahl einlegen — gibt Ihnen Weiterbeschäftigungsrecht\n"+
+			"• Handelt vertraulich: Betriebsratsmitglieder unterliegen der Schweigepflicht (§ 79 BetrVG)\n\n"+
+			"Was der BR nicht kann:\n"+
+			"• Eine Kündigung direkt rückgängig machen (das ist Aufgabe des Arbeitsgerichts)\n"+
+			"• Sie im Prozess vertreten (das übernehmen Gewerkschaft oder Fachanwalt)\n"+
+			"• Ohne Ihre Information tätig werden — er muss von Ihrer Situation wissen\n\n"+
+			"Wann Sie den BR kontaktieren sollten:\n"+
+			"• Sofort bei Erhalt einer Kündigung (3-Wochen-Klagefrist läuft ab Zugang!)\n"+
+			"• Bei Versetzung, Umgruppierung oder Änderungskündigung\n"+
+			"• Bei Einführung neuer Software, KI oder Überwachungssysteme\n"+
+			"• Bei Restrukturierung, Betriebsänderung oder drohendem Stellenabbau\n\n"+
+			"Kein BR im Betrieb? Ab 5 Arbeitnehmern kann einer gewählt werden (§ 1 BetrVG). Die Gewerkschaft hilft dabei.",
+		"The Betriebsrat (BR) is the elected employee representation body in a German company — governed by the Works Constitution Act (BetrVG).\n\n"+
+			"What the BR can do for you:\n"+
+			"• Must be consulted before every dismissal (§ 102) — without consultation the dismissal is void\n"+
+			"• Can enforce a Sozialplan (severance scheme) in layoffs (§ 112)\n"+
+			"• Must approve new IT/AI systems and monitoring tools (§ 87 Nr. 6)\n"+
+			"• Can object to incorrect social selection in dismissals — entitles you to continued employment\n"+
+			"• Operates confidentially: BR members are bound by a duty of secrecy (§ 79 BetrVG)\n\n"+
+			"What the BR cannot do:\n"+
+			"• Directly reverse a dismissal (that is the labour court's job)\n"+
+			"• Represent you in legal proceedings (that is done by a union or labour law specialist)\n"+
+			"• Act without knowing your situation — you need to inform it\n\n"+
+			"When to contact the BR:\n"+
+			"• Immediately on receiving a dismissal (3-week claim deadline starts from receipt!)\n"+
+			"• On a transfer, regrading, or amendment to your contract\n"+
+			"• When new software, AI, or monitoring systems are being introduced\n"+
+			"• When restructuring or layoffs are on the horizon\n\n"+
+			"No works council at your company? One can be founded with as few as 5 employees (§ 1 BetrVG). A union can help.")
+}
+
+func buildOnboardingActions(lang, question string) []string {
+	low := strings.ToLower(question)
+	if containsAny(low, "kein betriebsrat", "no works council", "betriebsrat gründen", "elect a works council", "found a works council") {
+		return []string{
+			tr(lang, "Gewerkschaft kontaktieren — sie organisieren Betriebsratsgründungen kostenlos", "Contact a trade union — they organise works council elections for free"),
+			tr(lang, "Wahlvorstand bestellen: 3 Arbeitnehmer können die Wahl einleiten (§ 17 BetrVG)", "Appoint an electoral board: 3 employees can initiate the election (§ 17 BetrVG)"),
+			tr(lang, "Arbeitgeber darf die Wahl nicht behindern — Behinderung ist strafbar (§ 119 BetrVG)", "The employer may not obstruct the election — obstruction is a criminal offence (§ 119 BetrVG)"),
+		}
+	}
+	// Default next steps for curious users
+	return []string{
+		tr(lang, "Prüfen ob es in Ihrem Betrieb einen BR gibt: Personalabteilung oder schwarzes Brett", "Check if your company has a works council: ask HR or check the notice board"),
+		tr(lang, "Eigene Situation schildern: betriebsrat ask \"[Ihre konkrete Situation]\"", "Describe your situation: betriebsrat ask \"[your specific situation]\""),
+		tr(lang, "Rechte bei konkretem Thema prüfen: betriebsrat rights-check \"[Thema]\"", "Check rights on a specific topic: betriebsrat rights-check \"[topic]\""),
+		tr(lang, "Alle BetrVG-Paragrafen nachschlagen: betriebsrat law <§-Nummer>", "Look up any BetrVG paragraph: betriebsrat law <§-number>"),
+	}
 }
 
 func buildEmployeeAnswer(lang, question string, strongest betrvg.CoDeterminationType, paras []betrvg.Paragraph, classification string) string {
@@ -361,9 +477,33 @@ func classificationFallback(lang, classification string) string {
 	}
 }
 
-// detectRole returns "employee" or "br_member" based on question phrasing.
+// detectRole returns "curious", "employee", or "br_member" based on question phrasing.
+// "curious" = exploratory/definitional question from someone new to BR concepts.
 func detectRole(question string) string {
 	low := strings.ToLower(question)
+
+	// Exploratory signals — user wants to understand BR, not navigate a specific situation
+	exploratorySignals := []string{
+		"was ist ein betriebsrat", "was ist der betriebsrat", "what is a works council",
+		"what is the works council", "was macht ein betriebsrat", "was macht der betriebsrat",
+		"what does a works council do", "what does the works council do",
+		"wie funktioniert", "how does a works council", "how does the works council",
+		"wofür ist der betriebsrat", "what is the br for", "what's the br for",
+		"erkläre den betriebsrat", "erkläre mir", "explain the works council", "explain what a",
+		"habe ich einen betriebsrat", "do i have a works council", "gibt es einen betriebsrat",
+		"is there a works council", "kein betriebsrat", "no works council",
+		"betriebsrat gründen", "found a works council", "elect a works council",
+		"was kann der betriebsrat", "what can the works council", "what can a works council",
+		"was darf der betriebsrat", "what may the works council",
+		"unterschied zwischen betriebsrat", "difference between works council",
+		"wozu ist ein betriebsrat", "wozu dient", "what's the point of",
+		"neu hier", "new to this", "first time asking",
+	}
+	for _, sig := range exploratorySignals {
+		if strings.Contains(low, sig) {
+			return "curious"
+		}
+	}
 
 	// Strong employee signals
 	employeeSignals := []string{
