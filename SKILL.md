@@ -169,6 +169,8 @@ Nächste Schritte: [concrete actions — object, consult lawyer, etc.]
 
 | Situation | Primary Command | Follow-up |
 |-----------|----------------|-----------|
+| "I don't know which command to use" | `ask` | any command it suggests |
+| "Share with non-technical colleague" | `serve` | — |
 | **— Employee questions —** | | |
 | "Was the BR consulted before my dismissal?" | `check-anhoerung` | `consequences kündigung` |
 | "My dismissal — was it procedurally valid?" | `consequences kündigung` | `check-anhoerung` if you have the letter |
@@ -638,6 +640,18 @@ betriebsrat-pp-cli consequences versetzung --agent --lang en
 ---
 
 ## Command Reference
+
+**ask** — Natural-language entry point — no command knowledge required
+- `betriebsrat-pp-cli ask "<question in German or English>"`
+- Detects role (employee/BR), language, situation; routes to right analysis; returns audience-appropriate answer
+- Extracts salary/years from question for automatic Sozialplan estimate
+- `--json` returns structured result with role, classification, paragraphs, actions, deadline, disclaimer
+
+**serve** — Local web chat UI for employees and BR members without terminal access
+- `betriebsrat-pp-cli serve [--port 8080]`
+- Opens a browser-usable chat interface at `http://localhost:7890`
+- POST `/ask` endpoint for integration; GET `/` serves the chat UI
+- No external dependencies; works fully offline for embedded-knowledge questions
 
 **articles** — Individual articles and guides from betriebsrat.de
 - `betriebsrat-pp-cli articles` — Search for articles within a topic area
