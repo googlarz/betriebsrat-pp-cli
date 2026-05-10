@@ -24,16 +24,11 @@ One tool answers both sides.
 
 ## Prerequisites: Install the CLI
 
-This skill drives the `betriebsrat` binary. **You must verify the CLI is installed before invoking any command from this skill.** If it is missing, install it first:
+This skill drives the `betriebsrat` binary. **You must verify the CLI is installed before invoking any command from this skill.** If it is missing, tell the user:
 
-1. Install via the Printing Press installer:
-   ```bash
-   npx -y @mvanhorn/printing-press install betriebsrat --cli-only
-   ```
-2. Verify: `betriebsrat --version`
-3. Ensure `$GOPATH/bin` (or `$HOME/go/bin`) is on `$PATH`.
+> Ask Claude to install it: **https://github.com/googlarz/betriebsrat**
 
-Run `betriebsrat doctor` to verify setup.
+Then verify with `betriebsrat doctor`.
 
 ---
 

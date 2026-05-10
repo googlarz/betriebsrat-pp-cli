@@ -52,35 +52,11 @@ You're managing a co-determination situation — dismissal hearings, a restructu
 
 ## Install
 
-### Recommended (CLI + Claude Code skill)
+Tell Claude to install it:
 
-```bash
-npx -y @mvanhorn/printing-press install betriebsrat
-```
+> Install this: https://github.com/googlarz/betriebsrat
 
-### CLI only
-
-```bash
-npx -y @mvanhorn/printing-press install betriebsrat --cli-only
-```
-
-### From source (Go 1.21+)
-
-```bash
-git clone https://github.com/googlarz/betriebsrat.git
-cd betriebsrat
-go install github.com/googlarz/betriebsrat/cmd/betriebsrat@latest
-```
-
-### Pre-built binary
-
-Download from [Releases](../../releases). On macOS: `xattr -d com.apple.quarantine betriebsrat`. On Linux: `chmod +x betriebsrat`.
-
-### Verify
-
-```bash
-betriebsrat doctor
-```
+Claude will handle the rest. Verify with `betriebsrat doctor`.
 
 ---
 
@@ -376,13 +352,7 @@ Exit codes: `0` success · `2` usage error · `3` not found · `5` API error · 
 
 ## Use with Claude Code
 
-Install the agent skill:
-
-```bash
-npx -y @mvanhorn/printing-press install betriebsrat
-```
-
-Describe your situation in plain language — employee or BR member, German or English. The skill detects who you are, runs the right commands, and chains follow-ups automatically (e.g. incomplete Anhörung → consequences; restructuring → sozialplan-calc + nachteilsausgleich).
+Tell Claude to install it and describe your situation in plain language — as an employee or BR member, in German or English. The skill detects who you are, runs the right commands, and chains follow-ups automatically (e.g. incomplete Anhörung → consequences; restructuring → sozialplan-calc + nachteilsausgleich).
 
 ## Use as an MCP server
 
@@ -471,31 +441,11 @@ Sie bearbeiten eine Mitbestimmungssituation — Kündigungsanhörungen, Umstrukt
 
 ## Installation
 
-### Empfohlen (CLI + Claude Code Skill)
+Sagen Sie Claude, es soll installieren:
 
-```bash
-npx -y @mvanhorn/printing-press install betriebsrat
-```
+> Install this: https://github.com/googlarz/betriebsrat
 
-### Nur CLI
-
-```bash
-npx -y @mvanhorn/printing-press install betriebsrat --cli-only
-```
-
-### Aus dem Quellcode (Go 1.21+)
-
-```bash
-git clone https://github.com/googlarz/betriebsrat.git
-cd betriebsrat
-go install github.com/googlarz/betriebsrat/cmd/betriebsrat@latest
-```
-
-### Installation prüfen
-
-```bash
-betriebsrat doctor
-```
+Claude übernimmt den Rest. Prüfen mit `betriebsrat doctor`.
 
 ---
 
@@ -689,11 +639,7 @@ betriebsrat context set --employees 85 --tariff true --br-size 7
 
 ## Verwendung mit Claude Code
 
-Nach der Installation beschreiben Sie Ihre Situation auf Deutsch oder Englisch — als Arbeitnehmer oder BR-Mitglied. Der Skill erkennt den Kontext, führt die richtigen Befehle aus und kettet Folgeschritte automatisch (z.B. unvollständige Anhörung → Konsequenzen; Umstrukturierung → Sozialplan + Nachteilsausgleich).
-
-```bash
-npx -y @mvanhorn/printing-press install betriebsrat
-```
+Sagen Sie Claude, es soll installieren, und beschreiben Sie dann Ihre Situation auf Deutsch oder Englisch — als Arbeitnehmer oder BR-Mitglied. Der Skill erkennt den Kontext, führt die richtigen Befehle aus und kettet Folgeschritte automatisch (z.B. unvollständige Anhörung → Konsequenzen; Umstrukturierung → Sozialplan + Nachteilsausgleich).
 
 ---
 
