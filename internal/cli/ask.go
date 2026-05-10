@@ -183,9 +183,7 @@ func buildAskResult(lang, question string) askResult {
 		for _, p := range paras {
 			result.Paragraphs = append(result.Paragraphs, askPara{p.Number, p.Title, string(p.CoDetermType)})
 		}
-		if paras[0].TopicURL != "" {
-			result.TopicURL = paras[0].TopicURL
-		}
+		result.TopicURL = paras[0].LegalSourceURL()
 	} else {
 		// No paragraphs matched by keyword, but classification may still be known.
 		// Use a classification-based fallback answer.
@@ -399,8 +397,8 @@ func buildEmployeeAnswer(lang, question string, strongest betrvg.CoDetermination
 			fmt.Sprintf("This situation falls under: %s. This means the employer cannot act unilaterally without involving the works council.", classification)))
 	} else {
 		sb.WriteString(tr(lang,
-			"Für Ihre konkrete Situation empfehle ich: Prüfen Sie, ob der Betriebsrat einbezogen wurde, und konsultieren Sie betriebsrat.de oder einen Fachanwalt für Arbeitsrecht.",
-			"For your situation I recommend: check whether the works council was involved, and consult betriebsrat.de or a labour law specialist."))
+			"Für Ihre konkrete Situation empfehle ich: Prüfen Sie, ob der Betriebsrat einbezogen wurde, und konsultieren Sie gesetze-im-internet.de oder einen Fachanwalt für Arbeitsrecht.",
+			"For your situation I recommend: check whether the works council was involved, and consult gesetze-im-internet.de or a labour law specialist."))
 	}
 
 	return sb.String()
