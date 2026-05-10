@@ -1,6 +1,6 @@
 ---
 name: betriebsrat
-description: "German works council advisor: rights-check, deadlines, BetrVG decisions, and situation-specific playbooks — offline, in your terminal. Trigger phrases: `check Betriebsrat rights`, `does BR have co-determination`, `BetrVG paragraph`, `Betriebsrat deadline`, `works council rights Germany`, `Kündigung Betriebsrat`, `Betriebsänderung`, `Software Einführung Betriebsrat`, `use betriebsrat`, `run betriebsrat`."
+description: "German works council (Betriebsrat) advisor for both BR members and employees — rights-check, deadlines, BetrVG decisions, Sozialplan calculation, and procedure-violation checks — offline, in your terminal. Trigger phrases: `check Betriebsrat rights`, `does BR have co-determination`, `BetrVG paragraph`, `Betriebsrat deadline`, `works council rights Germany`, `Kündigung Betriebsrat`, `was the BR consulted`, `am I entitled to Sozialplan`, `Betriebsänderung`, `Software Einführung Betriebsrat`, `use betriebsrat`, `run betriebsrat`."
 author: "Dawid Piaskowski"
 license: "Apache-2.0"
 argument-hint: "<command> [args] | install cli|mcp"
@@ -14,7 +14,13 @@ metadata:
 
 # Betriebsrat — Printing Press CLI
 
-Full knowledge base of betriebsrat.de — offline, in your terminal — with decision support that no website offers: instant answers to "do we have a say in this?", legal deadline calculation, situation checklists, and plain-language BetrVG paragraph explanations. Built for works council members who need answers in minutes, not hours of reading.
+Full knowledge base of betriebsrat.de — offline, in your terminal — with decision support that no website offers. Built for two groups:
+
+**Works council members (BR):** Was procedure followed correctly? Do we have a say? What must we do, and by when?
+
+**Employees:** Was the BR consulted before my dismissal/transfer/restructuring? Was procedure violated? What am I entitled to?
+
+One tool answers both sides. Every command works without network access.
 
 ## Prerequisites: Install the CLI
 
@@ -34,6 +40,16 @@ Run `betriebsrat-pp-cli doctor` to verify setup.
 ## Auto-Session Protocol (Always Follow This)
 
 **When this skill is activated with any situation described, do the following immediately — without waiting to be asked:**
+
+### A0 — Detect user role
+
+From the user's message, determine whether they are:
+
+- **An employee** ("my employer is...", "I was dismissed", "am I entitled to...", "was the BR consulted?", "what can I claim?")
+- **A BR member** ("we received...", "employer wants to...", "do we have to consent?", "what's our deadline?")
+- **Unclear** — ask one question: "Are you a works council member, or an employee asking about your own situation?"
+
+This changes how advice is framed — but **both groups run the same underlying commands**. The employee framing answers "was procedure followed and what do I get?"; the BR framing answers "what must we do and by when?".
 
 ### A — Auto-classify the situation
 
@@ -128,8 +144,9 @@ betriebsrat-pp-cli prepare-meeting "<topic>" --agent
 
 ### Step 3 — Compose (advisory response)
 
-Build your advisory response from the command outputs. Use this structure:
+Build your advisory response from the command outputs.
 
+**For BR members:**
 ```
 Rechtslage: [co-determination type + applicable §§]
 Ihr Recht: [what BR can do — block, demand BV, consult, or inform?]
@@ -138,12 +155,30 @@ Empfohlene Schritte: [ordered action list from checklist]
 Weitere Informationen: [topic_url values from command output]
 ```
 
+**For employees:**
+```
+Was das Gesetz sagt: [applicable §§ and what they protect]
+Wurde das Verfahren eingehalten?: [was BR consulted correctly? was deadline met?]
+Ihre Ansprüche: [what the employee is entitled to if procedure was violated]
+Nächste Schritte: [concrete actions — object, consult lawyer, etc.]
+```
+
 ---
 
 ## When to Use Each Command
 
 | Situation | Primary Command | Follow-up |
 |-----------|----------------|-----------|
+| **— Employee questions —** | | |
+| "Was the BR consulted before my dismissal?" | `check-anhoerung` | `consequences kündigung` |
+| "My dismissal — was it procedurally valid?" | `consequences kündigung` | `check-anhoerung` if you have the letter |
+| "Am I entitled to a Sozialplan payment?" | `sozialplan-calc` | `law 112` for entitlement basis |
+| "Employer restructured without Interessenausgleich — can I claim?" | `nachteilsausgleich` | `sozialplan-calc` for comparison |
+| "Was the BR consulted before my transfer?" | `consequences versetzung` | `rights-check "Versetzung"` |
+| "My hiring — did employer skip the BR?" | `consequences einstellung` | `rights-check "Einstellung"` |
+| "Does the new AI tool at work trigger co-determination?" | `ki-check` | `consequences software` |
+| "How many months' salary is my Sozialplan?" | `sozialplan-calc` | `law 112` |
+| **— BR member questions —** | | |
 | "Does BR have a say?" | `rights-check` | `decide` for full decision |
 | "What kind of right do we have?" | `codetermination-type` | `law` for paragraph detail |
 | "When must we respond?" | `deadline` | `checklist` for full process |
@@ -369,6 +404,43 @@ betriebsrat-pp-cli prepare-meeting "Homeoffice-Regelung Betriebsvereinbarung" --
 - BV should cover: who qualifies, equipment (employer provides?), ergonomics, reachability hours, data protection, accident coverage, cost reimbursement
 - Employer **cannot unilaterally end** homeoffice governed by a BV without renegotiating
 - Individual agreements do not replace a BV — BV governs the framework for everyone
+
+---
+
+### Employee: "Was procedure followed? What am I entitled to?"
+
+An employee is affected by a dismissal, transfer, or restructuring and wants to know if the BR was involved correctly and what they can claim.
+
+```bash
+# Dismissal: check if BR was properly consulted
+betriebsrat-pp-cli check-anhoerung "<text of the Anhörungsschreiben>" --type ordentlich --agent
+# → Shows: which required fields are present/missing, whether 7-day clock ran correctly
+
+# If the Anhörung was incomplete: find out what that means for the dismissal
+betriebsrat-pp-cli consequences kündigung --agent --lang en
+# → Shows: dismissal may be void; employee can object in labour court
+
+# Restructuring/layoff: check if Sozialplan applies
+betriebsrat-pp-cli law 112 --agent --lang en
+# → Shows: Sozialplan is erzwingbar; employees have an individual entitlement
+
+# Calculate Sozialplan entitlement
+betriebsrat-pp-cli sozialplan-calc --salary 4500 --years 8 --age 42 --factor 0.75 --lang en --agent
+
+# If employer skipped Interessenausgleich: calculate Nachteilsausgleich claim
+betriebsrat-pp-cli nachteilsausgleich --salary 4500 --years 8 --measure "Standortschließung" --no-ia-attempted --lang en --agent
+# → This is ADDITIVE to any Sozialplan payment (with offset — sozialplan-calc shows the offset)
+
+# Transfer without BR consent: check if the measure is void
+betriebsrat-pp-cli consequences versetzung --agent --lang en
+# → Shows: employer must reverse the transfer if labour court finds no consent was obtained
+```
+
+**Key employee facts:**
+- A dismissal where the BR was not properly consulted (or Anhörung was incomplete) can be **void** — challenge in labour court within 3 weeks
+- A Sozialplan is **legally enforceable** — employees have a direct claim even if the BV is silent on individual amounts; use `sozialplan-calc` to estimate
+- Nachteilsausgleich (§ 113) is a **personal claim** independent of the Sozialplan — runs in parallel, not instead of it
+- Transfer/hiring without BR consent: employer may have to **reverse the measure**; employee can rely on the invalidity
 
 ---
 
