@@ -4,35 +4,39 @@
 
 > **[🇩🇪 Deutsche Version weiter unten](#deutsch)**
 
-German labour law is full of rights most people don't know they have. This tool makes them instantly accessible — in plain language, in German or English, without needing to know any law yourself.
+When your employer hands you a dismissal notice, announces a restructuring, or rolls out new monitoring software — you're at a disadvantage. They have legal counsel. You have Google.
+
+betriebsrat closes that gap. Describe your situation in plain German or English and get a grounded answer that cites the specific law, the relevant deadline, and what your employer was actually required to do.
+
+Built on content from [betriebsrat.de](https://www.betriebsrat.de) — the recognised German authority on works council practice — and the complete text of the *Betriebsverfassungsgesetz*. Every answer links back to the relevant topic on betriebsrat.de so you can verify it yourself. Not AI guesswork: structured law reasoning grounded in authoritative sources.
 
 ---
 
 ## What can I ask?
 
-Just describe your situation. Here are examples of what the tool considers when answering:
+Describe your situation in your own words. Here is what the tool knows to look for:
 
 **As an employee:**
 
 > "Can I get severance? I've worked here 7 years and earn €3,500 a month."
 
-*Considers: years of service and salary against the Munich formula, whether a Sozialplan exists or was bypassed, company size threshold.*
+*Severance isn't automatic — it depends on whether a Sozialplan was agreed or bypassed, and whether your company meets the size threshold. If it applies, your numbers run through the Munich formula.*
 
 > "I received a dismissal notice. Was the works council properly consulted?"
 
-*Considers: whether a hearing notice was issued at all, completeness of social data and stated reason, applicable deadline (§ 102 BetrVG), consequence of missing or defective consultation.*
+*If the hearing notice was missing, incomplete, or gave the BR too little time, the dismissal is invalid — regardless of the reason given. This is one of the most common procedural failures employers make.*
 
 > "I'm pregnant and my employer wants to end my contract."
 
-*Considers: Mutterschutzgesetz protection period, 2-week retroactive notification rule, whether the employer knew about the pregnancy, SGB IX if a disability is also involved.*
+*The protection applies even if your employer doesn't know about the pregnancy yet. If you find out after receiving the notice, you have 2 weeks to inform them — and the protection kicks in retroactively.*
 
 > "My employer introduced monitoring software. Did the works council have to agree?"
 
-*Considers: whether the software can track performance or behaviour — directly or via logs — triggering § 87 Abs. 1 Nr. 6 BetrVG, whether a Betriebsvereinbarung was negotiated, remedy if it wasn't.*
+*The trigger isn't whether it's marketed as "monitoring" — it's whether it can track performance or behaviour, even indirectly through logs. If the BR wasn't involved before rollout, the deployment may be unlawful.*
 
 > "I was transferred to a different location without my agreement. Is that allowed?"
 
-*Considers: whether the BR was asked for consent (§ 99 BetrVG), how significantly the working conditions change, valid grounds for refusal, and what you can do if consent was skipped.*
+*The BR must approve transfers. The question is how significantly your conditions actually change — that determines whether the BR had grounds to refuse, and what you can do if the employer skipped the step entirely.*
 
 ---
 
@@ -40,19 +44,19 @@ Just describe your situation. Here are examples of what the tool considers when 
 
 > "We received a dismissal hearing notice. What must we do and by when?"
 
-*Considers: type of dismissal (ordinary vs. immediate) → 1-week or 3-day deadline, completeness of social data and reason, grounds for objection under § 102 Abs. 3, effect of objection on continued employment.*
+*The deadline isn't the only thing to check. If the employer gave incomplete social data or no reason, your options expand — an objection gives the employee the right to continued employment while any dispute is pending.*
 
 > "The employer wants to introduce an AI writing assistant. Do we have co-determination rights?"
 
-*Considers: whether the tool can monitor output or behaviour even indirectly (§ 87 Nr. 6), DSGVO Art. 35 data protection impact assessment, what a Betriebsvereinbarung must cover, whether rollout can be blocked.*
+*The question isn't whether it's called "AI" — it's whether it can influence or evaluate how employees work, even indirectly. That triggers § 87 Nr. 6, and you can block rollout until a Betriebsvereinbarung is agreed.*
 
 > "We're facing a mass layoff of 20 people. What's our role?"
 
-*Considers: thresholds under § 17 KSchG, 30-day consultation requirement before the employer files with the employment agency, Sozialplan calculation using Munich formula, Einigungsstelle route if employer refuses.*
+*The 30-day consultation window starts before the employer files with the employment agency — not after. Missing that sequence gives grounds to challenge the entire process.*
 
 > "Can we force a Sozialplan if the employer refuses to negotiate?"
 
-*Considers: erzwingbare Mitbestimmung under § 112 Abs. 4 BetrVG, how to call the Einigungsstelle, what it can and cannot decide, timeline.*
+*Yes — the Sozialplan is one of the few areas where the BR can go to the Einigungsstelle and get a binding decision without employer agreement.*
 
 ---
 
@@ -63,16 +67,6 @@ Tell Claude to install it:
 > Install this: https://github.com/googlarz/betriebsrat
 
 Claude will handle the rest. Then just describe your situation and ask away.
-
----
-
-## Why trust it?
-
-The knowledge base is built on content from [betriebsrat.de](https://www.betriebsrat.de) — the recognised German authority on works council practice — combined with the complete text of the *Betriebsverfassungsgesetz*. Every answer cites the specific paragraph that applies, and links directly back to the relevant topic on betriebsrat.de so you can verify it yourself.
-
-It reasons from that structured knowledge base — not free-form AI guesswork. If something falls outside what the law covers, it says so.
-
-The disclaimer at the bottom is there for a reason: this tool gives you the knowledge to understand your situation and know when you need a lawyer — not to replace one.
 
 ---
 
@@ -151,35 +145,41 @@ claude mcp add betriebsrat betriebsrat-pp-mcp
 
 **Arbeitsrechte kennen — für Arbeitnehmer und Betriebsratsmitglieder.**
 
-Das deutsche Arbeitsrecht steckt voller Rechte, von denen die meisten Menschen nichts wissen. Dieses Tool macht sie sofort zugänglich — in einfacher Sprache, auf Deutsch oder Englisch, ohne dass Sie selbst Jura studiert haben müssen.
+> **[🇬🇧 English version above](#betriebsrat)**
+
+Wenn der Arbeitgeber eine Kündigung überreicht, eine Umstrukturierung ankündigt oder neue Überwachungssoftware einführt — sind Sie im Nachteil. Er hat rechtliche Beratung. Sie haben Google.
+
+betriebsrat schließt diese Lücke. Beschreiben Sie Ihre Situation auf Deutsch oder Englisch und erhalten Sie eine fundierte Antwort, die den konkreten Paragrafen, die relevante Frist und das nennt, wozu Ihr Arbeitgeber verpflichtet war.
+
+Basiert auf Inhalten von [betriebsrat.de](https://www.betriebsrat.de) — der anerkannten deutschen Referenz für Betriebsratsrecht — und dem vollständigen Text des Betriebsverfassungsgesetzes. Jede Antwort verweist auf das entsprechende Thema auf betriebsrat.de, damit Sie es selbst nachprüfen können. Kein freies KI-Raten: strukturierte Rechtsauswertung auf Basis verlässlicher Quellen.
 
 ---
 
 ## Was kann ich fragen?
 
-Beschreiben Sie einfach Ihre Situation. Hier sind Beispiele dafür, was das Tool bei der Antwort berücksichtigt:
+Beschreiben Sie Ihre Situation in eigenen Worten. Das Tool weiß, worauf es dabei ankommt:
 
 **Als Arbeitnehmer:**
 
 > „Habe ich Anspruch auf eine Abfindung? Ich arbeite hier seit 7 Jahren und verdiene 3.500 € monatlich."
 
-*Berücksichtigt: Betriebszugehörigkeit und Gehalt gegen die Münchner Formel, ob ein Sozialplan besteht oder übergangen wurde, Betriebsgröße.*
+*Eine Abfindung ist nicht automatisch — sie hängt davon ab, ob ein Sozialplan vereinbart oder übergangen wurde und ob die Betriebsgröße den Schwellenwert erreicht. Wenn sie greift, laufen Ihre Zahlen durch die Münchner Formel.*
 
 > „Ich habe eine Kündigung erhalten. Wurde der Betriebsrat ordnungsgemäß angehört?"
 
-*Berücksichtigt: ob überhaupt ein Anhörungsschreiben ergangen ist, Vollständigkeit von Sozialdaten und Kündigungsgrund, einzuhaltende Frist (§ 102 BetrVG), Folgen einer fehlenden oder fehlerhaften Anhörung.*
+*Fehlt das Anhörungsschreiben, war es unvollständig oder die Frist zu kurz, ist die Kündigung unwirksam — unabhängig vom genannten Grund. Das ist einer der häufigsten Verfahrensfehler.*
 
 > „Ich bin schwanger und mein Arbeitgeber will meinen Vertrag beenden."
 
-*Berücksichtigt: Schutzfrist nach dem Mutterschutzgesetz, 2-Wochen-Regel zur rückwirkenden Mitteilung, ob der Arbeitgeber Kenntnis hatte, zusätzlicher Schutz nach SGB IX bei gleichzeitiger Behinderung.*
+*Der Schutz gilt auch, wenn der Arbeitgeber von der Schwangerschaft noch nichts weiß. Erfahren Sie es erst nach der Kündigung, haben Sie 2 Wochen Zeit zur Mitteilung — der Schutz greift rückwirkend.*
 
 > „Mein Arbeitgeber hat eine Überwachungssoftware eingeführt. Musste der Betriebsrat zustimmen?"
 
-*Berücksichtigt: ob die Software Leistung oder Verhalten erfassen kann — auch mittelbar über Logs — (§ 87 Abs. 1 Nr. 6 BetrVG), ob eine Betriebsvereinbarung ausgehandelt wurde, mögliche Rechtsfolgen bei fehlender Einigung.*
+*Entscheidend ist nicht, ob es als „Überwachung" beworben wird — sondern ob es Leistung oder Verhalten erfassen kann, auch mittelbar über Logs. Wurde der BR nicht einbezogen, kann der Einsatz rechtswidrig sein.*
 
 > „Ich wurde ohne mein Einverständnis versetzt. Ist das erlaubt?"
 
-*Berücksichtigt: ob der BR um Zustimmung gebeten wurde (§ 99 BetrVG), wie stark sich die Arbeitsbedingungen ändern, Verweigerungsgründe und Handlungsmöglichkeiten bei übergangener Beteiligung.*
+*Der BR muss Versetzungen zustimmen. Die Frage ist, wie stark sich die Arbeitsbedingungen tatsächlich ändern — das bestimmt, ob der BR Verweigerungsgründe hatte und was Sie tun können, wenn der Schritt übersprungen wurde.*
 
 ---
 
@@ -187,19 +187,19 @@ Beschreiben Sie einfach Ihre Situation. Hier sind Beispiele dafür, was das Tool
 
 > „Wir haben ein Anhörungsschreiben für eine Kündigung erhalten. Was müssen wir tun und bis wann?"
 
-*Berücksichtigt: Kündigungsart (ordentlich vs. fristlos) → Frist 1 Woche oder 3 Tage, Vollständigkeit von Sozialdaten und Grund, Widerspruchsgründe nach § 102 Abs. 3, Wirkung eines Widerspruchs auf Weiterbeschäftigung.*
+*Die Frist ist nicht das Einzige. Wenn der Arbeitgeber Sozialdaten oder den Grund unvollständig angegeben hat, erweitern sich Ihre Optionen — ein Widerspruch gibt dem Arbeitnehmer das Recht auf Weiterbeschäftigung während eines laufenden Verfahrens.*
 
 > „Der Arbeitgeber will einen KI-Schreibassistenten einführen. Haben wir ein Mitbestimmungsrecht?"
 
-*Berücksichtigt: ob das Tool Leistung oder Verhalten auch mittelbar erfassen kann (§ 87 Nr. 6), Datenschutz-Folgenabschätzung nach DSGVO Art. 35, notwendige Inhalte einer Betriebsvereinbarung, ob die Einführung blockiert werden kann.*
+*Nicht der Begriff „KI" ist entscheidend — sondern ob das Tool Arbeitsweise oder Leistung beeinflussen oder auswerten kann, auch indirekt. Das löst § 87 Nr. 6 aus, und Sie können die Einführung bis zur Einigung auf eine Betriebsvereinbarung blockieren.*
 
 > „Uns droht eine Massenentlassung von 20 Personen. Was ist unsere Rolle?"
 
-*Berücksichtigt: Schwellenwerte nach § 17 KSchG, 30-tägige Konsultationspflicht vor der Anzeige bei der Agentur für Arbeit, Sozialplanberechnung nach der Münchner Formel, Einigungsstellenverfahren bei Verweigerung des Arbeitgebers.*
+*Die 30-tägige Konsultationsfrist beginnt, bevor der Arbeitgeber die Anzeige bei der Agentur für Arbeit einreicht — nicht danach. Wird diese Reihenfolge missachtet, kann das gesamte Verfahren angefochten werden.*
 
 > „Können wir einen Sozialplan erzwingen, wenn der Arbeitgeber nicht verhandeln will?"
 
-*Berücksichtigt: erzwingbare Mitbestimmung nach § 112 Abs. 4 BetrVG, Einleitung des Einigungsstellenverfahrens, Entscheidungsbefugnis der Einigungsstelle, Zeitrahmen.*
+*Ja — der Sozialplan ist einer der wenigen Bereiche, in denen der BR die Einigungsstelle anrufen und eine verbindliche Entscheidung auch ohne Einverständnis des Arbeitgebers erwirken kann.*
 
 ---
 
@@ -210,16 +210,6 @@ Sagen Sie Claude, es soll installieren:
 > Install this: https://github.com/googlarz/betriebsrat
 
 Claude übernimmt den Rest. Dann beschreiben Sie einfach Ihre Situation.
-
----
-
-## Warum kann ich dem Tool vertrauen?
-
-Die Wissensdatenbank basiert auf Inhalten von [betriebsrat.de](https://www.betriebsrat.de) — der anerkannten deutschen Referenz für Betriebsratsrecht — ergänzt um den vollständigen Text des Betriebsverfassungsgesetzes. Jede Antwort nennt den konkreten Paragrafen und verweist direkt auf das entsprechende Thema auf betriebsrat.de, damit Sie die Grundlage selbst nachprüfen können.
-
-Das Tool arbeitet auf Basis dieser strukturierten Wissensdatenbank — kein freies KI-Raten. Wenn etwas außerhalb des gesetzlichen Rahmens liegt, wird das klar gesagt.
-
-Der Hinweis am Ende hat seinen Grund: Dieses Tool gibt Ihnen das Wissen, um Ihre Situation zu verstehen und zu erkennen, wann Sie einen Anwalt brauchen — es ersetzt ihn nicht.
 
 ---
 
